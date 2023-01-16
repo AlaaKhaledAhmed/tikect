@@ -1,0 +1,23 @@
+import 'package:flutter/material.dart';
+
+IconData nameIcon=Icons.person;
+IconData passIcon=Icons.password;
+IconData emailIcon=Icons.email_outlined;
+IconData fileIcon = Icons.file_present_rounded;
+IconData numberOfUsers = Icons.people_outlined;
+IconData update = Icons.edit_note_rounded;
+IconData sectionIcon = Icons.medication;
+IconData delete = Icons.delete_rounded;
+IconData arrowDropDown=Icons.arrow_drop_down;
+IconData error=Icons.report_problem;
+IconData date = Icons.date_range;
+IconData comment = Icons.comment_rounded;
+IconData id = Icons.remember_me;
+IconData pdf = Icons.picture_as_pdf;
+IconData show = Icons.visibility_sharp;
+IconData download = Icons.download;
+IconData done = Icons.task_alt;
+IconData projectIcon = Icons.picture_as_pdf_rounded;
+IconData add = Icons.group_add;
+IconData addProject= Icons.note_add_rounded;
+IconData updateProject= Icons.note_alt_rounded;

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "497904991408",
+    "project_id": "tekict-event",
+    "storage_bucket": "tekict-event.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497904991408:android:dd0e5e642c798b40a18f75",
+        "android_client_info": {
+          "package_name": "com.example.tikect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "497904991408-8g49sjj4nq01jcu2ih6fmja18dr3q7ns.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1d0JOtvGzvYS800Vg_5_goryC4gT72Bw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "497904991408-8g49sjj4nq01jcu2ih6fmja18dr3q7ns.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

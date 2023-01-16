@@ -123,7 +123,7 @@ class _LogInState extends State<LogIn> {
                             value.docs.forEach((element) {
                                 print('respoms is: $v');
                               if (element.data()['type'] == 'user') {
-                                goToReplace(context, const UserHome());
+                                goToReplace(context, const AdminHome());
                               } else if (element.data()['type'] == 'eventOwner') {
                                goToReplace(context,const EventOwnerHome());
                               } else{

@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:tikect/Admin/AdminHome.dart';
 import 'Colors/Colors.dart';
 import 'Log/Logging.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
                 child: widget!,
               );
             },
-            home:LogIn()
+            home:AdminHome()
 
         );
       },

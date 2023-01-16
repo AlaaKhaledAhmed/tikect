@@ -52,6 +52,50 @@ class Firbase {
     }
     return 'error';
   }
+//====================================================================
+  static Future<String> singUpAccountEventOwner({
+    required String name,
+    required String email,
+    required String password,
+    required String phone,
+
+  }) async {
+    try {
+      //add user information
+      //ميثود جاهزه اعطيها الايميل والباسورد وتعطيني uid
+      //اول مكتبه "firabaseauth "متخصصه اني اعطيها ايميل واعطيها باسورد وهيا تضيفها لي بلجدول وتعطيها uid
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+          email: email.trim(), password: password);
+      //اتاكد العمليه تمت ولا ما تمت
+      if (userCredential.user != null) {
+        //اذا انضاف ف انا محتاجه اضيف بقيه المعلومات في الكلاود
+        //امر ابدا ضيف لي في الداتا بيز
+        //انشي لي جدول اسمه يوزر اضف فيه الحقول الاتيه وهذي الحقول انتبه للاسبلنق ولانه بضيفها في كل مكان
+        await FirebaseFirestore.instance.collection('users').add({
+          'name': name,
+          'userId': userCredential.user?.uid,
+          'password': password,
+          'email': email,
+          'type': 'eventOwner',
+          'phone': phone
+
+        });
+        return 'done';
+      }
+    } on FirebaseException catch (e) {
+
+      if (e.code == 'weak-password') {
+        return 'weak-password';
+      }
+      if (e.code == 'email-already-in-use') {
+        return 'email-already-in-use';
+      }
+    } catch (e) {
+      return e.toString();
+    }
+    return 'error';
+  }
 
   //=======================Log in method======================================
 
@@ -116,6 +160,27 @@ class Firbase {
           .doc(docId)
 
           .update({'name': name, 'type': type, 'idNumber': idNumber});
+
+      return 'done';
+    } catch (e) {
+      return 'error';
+    }
+  }
+  //=============================================================
+
+  static Future<String> updateEventOwner({
+    required String name,
+    required String phone,
+    required String docId,
+
+  }) async {
+    try {
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(docId)
+
+          .update({'name': name, 'phone': phone});
 
       return 'done';
     } catch (e) {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tikect/Admin/ViewUser.dart';
 import '../../Colors/Colors.dart';
 import '../Data/Firebase.dart';
 import '../Funcations/Funcation.dart';
@@ -20,7 +21,7 @@ class _AdminHomeState extends State<AdminHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       //وقفنا عند صفحه الادمن
-      body: Center(child: text(context, "Admin Home",15 , black)),
+      body:ViewUser(),
 
     );
   }

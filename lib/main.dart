@@ -1,10 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:tikect/Admin/AdminHome.dart';
 import 'Colors/Colors.dart';
-import 'Log/Logging.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'EventOwner/EventOwnerHome.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -37,7 +36,7 @@ class MyApp extends StatelessWidget {
                 child: widget!,
               );
             },
-            home:AdminHome()
+            home:const EventOwnerHome()
 
         );
       },

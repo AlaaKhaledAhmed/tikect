@@ -1,11 +1,9 @@
-import 'dart:io';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
-import 'dart:math';
 import '../Colors/Colors.dart';
 import '../Log/Logging.dart';
 import '../Messag/Messages.dart';
@@ -44,19 +42,20 @@ Widget text(context, String key, double fontSize, Color color,
     align = TextAlign.right,
     double space = 0,
     FontWeight fontWeight = FontWeight.normal,
-    decoration = TextDecoration.none}) {
+   }) {
   return Text(
     key,
     textAlign: align,
+    textDirection: TextDirection.ltr,
     //softWrap: false,
     style: TextStyle(
       color: color,
-      //overflow: TextOverflow.ellipsis,
       fontFamily: family,
-      decoration: decoration,
       fontSize: fontSize.sp,
       letterSpacing: space.sp,
       fontWeight: fontWeight,
+
+      
     ),
   );
 }

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 Color textColor = Color(0xff343333);
 Color iconColor = Color(0xff5aa571 );
 Color textFieldColors = Color(0xffbfb9c3);
+Color mainColor=Colors.grey[100]!;
+
 const Color black = Color(0xFF000000);
 const Color backgroundColor = Colors.white ;
 const textFieldColors2=Color(0xFFE9EFF0);

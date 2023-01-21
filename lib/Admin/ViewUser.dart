@@ -44,7 +44,8 @@ class _ViewUserState extends State<ViewUser> {
           goTo(context, const AddUser());
         },
       ),
-      body: SizedBox(
+      body:
+       SizedBox(
         height: double.infinity,
         width: double.infinity,
         child: Padding(

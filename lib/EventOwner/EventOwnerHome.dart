@@ -83,8 +83,8 @@ class _EventOwnerHomeState extends State<EventOwnerHome> {
 //==============================================================
   Widget mainBody(BuildContext context, AsyncSnapshot snapshat) {
     return
-        //snapshat.data.docs.length > 0
-        // ?
+        snapshat.data.docs.length > 0
+        ?
         Expanded(
       child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -94,9 +94,9 @@ class _EventOwnerHomeState extends State<EventOwnerHome> {
               mainAxisSpacing: 0 //المسافات الافقية
 
               ),
-          itemCount: 5, // snapshat.data.docs.length ,
+          itemCount: snapshat.data.docs.length ,
           itemBuilder: (context, i) {
-            //  var data = snapshat.data.docs[i].data();
+           var data = snapshat.data.docs[i].data();
             return InkWell(
                 onLongPress: () {
                   deleteInformation(i, snapshat.data.docs[i].id, snapshat);
@@ -149,13 +149,13 @@ class _EventOwnerHomeState extends State<EventOwnerHome> {
                                       SizedBox(
                                         height: 70.h,
                                       ),
-                                      text(context, '29th November 2023',
+                                      text(context, data['startDate'],
                                           mainTextSize, Colors.grey[900]!,
                                           align: TextAlign.justify),
-                                      text(context, 'Maysem Alryad',
+                                      text(context, data['name'],
                                           mainTextSize, Colors.grey[700]!,
                                           align: TextAlign.justify),
-                                      text(context, 'alRyad-sudea',
+                                      text(context, data['location'],
                                           mainTextSize, Colors.grey[500]!,
                                           align: TextAlign.justify),
                                       const Spacer(),
@@ -167,9 +167,9 @@ class _EventOwnerHomeState extends State<EventOwnerHome> {
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(10.r))),
                                         margin: EdgeInsets.only(top: 10.h),
-                                        padding: EdgeInsets.all(10.w),
-                                        child: text(context, 'Sold out 12 out of 20',
-                                            subTextSize, white,
+                                        padding: EdgeInsets.all(11.w),
+                                        child: text(context, 'Sold out ${data['soldOut']} of ${data['totalTicket']}',
+                                            subTextSize+2, white,
                                             align: TextAlign.justify),
                                       ),
                                     ],
@@ -197,7 +197,7 @@ class _EventOwnerHomeState extends State<EventOwnerHome> {
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5.0.r)),
                                   child: Image.network(
-                                    'https://firebasestorage.googleapis.com/v0/b/tekict-event.appspot.com/o/pexels-salah-alawadhi-382297.jpg?alt=media&token=f61efe2d-7b64-4480-931c-230b52c5c732',
+                                   data['link'],
                                     fit: BoxFit.cover,
                                   ),
                                 ))),
@@ -206,16 +206,16 @@ class _EventOwnerHomeState extends State<EventOwnerHome> {
                   ),
                 ));
           }),
-    );
+    )
 
 //================================================================
-    // : Center(
-    //     child: Padding(
-    //         padding: EdgeInsets.only(
-    //             top: MediaQuery.of(context).size.height / 2),
-    //         child: text(context, 'Empty List', subTextSize, black,
-    //             fontWeight: FontWeight.bold)),
-    //   );
+    : Center(
+        child: Padding(
+            padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height / 2),
+            child: text(context, 'Empty List', subTextSize, black,
+                fontWeight: FontWeight.bold)),
+      );
   }
 
 //get section===============================================================================
@@ -263,7 +263,7 @@ class _EventOwnerHomeState extends State<EventOwnerHome> {
                 onPressed: () async {
                   Navigator.of(context).pop(true);
 
-                  Firbase.delete(docId: id, collection: 'users')
+                  Firbase.delete(docId: id, collection: 'tickets')
                       .then((String v) {
                     if (v == 'done') {
                     } else {}

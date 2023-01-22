@@ -1,12 +1,11 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/src/widgets/editable_text.dart';
 
 //حق الحقول لو انا بضيف الحقول في الداتا بيز
 //انشات كلاس الفير بيز فيها كل الميثود الي هنستخدمها في الداتا
 //١-اضافه حساب ٢- اضافه مستخدم ٣-عمليه لوق ان ٤-عرض الايفنتات حذف الايفنت ٥-تعديل ايفنت
 class Firbase {
-
   //=======================Sing up method======================================
   //اول فانكشن "انشاء حساب " خاص بصفحه الكريت
   static Future<String> singUpAccount({
@@ -35,12 +34,10 @@ class Firbase {
           'email': email,
           'type': type,
           'idNumber': idNumber
-
         });
         return 'done';
       }
     } on FirebaseException catch (e) {
-
       if (e.code == 'weak-password') {
         return 'weak-password';
       }
@@ -52,13 +49,13 @@ class Firbase {
     }
     return 'error';
   }
+
 //====================================================================
   static Future<String> singUpAccountEventOwner({
     required String name,
     required String email,
     required String password,
     required String phone,
-
   }) async {
     try {
       //add user information
@@ -66,7 +63,7 @@ class Firbase {
       //اول مكتبه "firabaseauth "متخصصه اني اعطيها ايميل واعطيها باسورد وهيا تضيفها لي بلجدول وتعطيها uid
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
-          email: email.trim(), password: password);
+              email: email.trim(), password: password);
       //اتاكد العمليه تمت ولا ما تمت
       if (userCredential.user != null) {
         //اذا انضاف ف انا محتاجه اضيف بقيه المعلومات في الكلاود
@@ -79,12 +76,10 @@ class Firbase {
           'email': email,
           'type': 'eventOwner',
           'phone': phone
-
         });
         return 'done';
       }
     } on FirebaseException catch (e) {
-
       if (e.code == 'weak-password') {
         return 'weak-password';
       }
@@ -112,17 +107,14 @@ class Firbase {
     } on FirebaseException catch (e) {
       if (e.code == 'user-not-found') {
         return 'user-not-found';
-
       }
       if (e.code == 'wrong-password') {
         return 'user-not-found';
-
       }
     } catch (e) {
       return 'error';
     }
     return 'error';
-
   }
 
 //===================================================================
@@ -130,19 +122,16 @@ class Firbase {
 
   static Future<String> resetPassword({required String email}) async {
     try {
-
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email.trim());
       return 'done';
     } on FirebaseException catch (e) {
       if (e.code == 'user-not-found') {
         return 'user-not-found';
-
       }
     } catch (e) {
       return 'error';
     }
     return 'error';
-
   }
   //=======================Update user method======================================
 
@@ -151,14 +140,11 @@ class Firbase {
     required String idNumber,
     required String type,
     required String docId,
-
   }) async {
     try {
-
       await FirebaseFirestore.instance
           .collection('users')
           .doc(docId)
-
           .update({'name': name, 'type': type, 'idNumber': idNumber});
 
       return 'done';
@@ -166,20 +152,17 @@ class Firbase {
       return 'error';
     }
   }
-  //=============================================================
+  //updateEventOwner=============================================================
 
   static Future<String> updateEventOwner({
     required String name,
     required String phone,
     required String docId,
-
   }) async {
     try {
-
       await FirebaseFirestore.instance
           .collection('users')
           .doc(docId)
-
           .update({'name': name, 'phone': phone});
 
       return 'done';
@@ -192,7 +175,6 @@ class Firbase {
   static Future<String> delete({
     required String docId,
     required String collection,
-
   }) async {
     try {
       await FirebaseFirestore.instance
@@ -206,4 +188,60 @@ class Firbase {
     }
   }
 
+//addEvent================================================================
+  static addEvent(
+      {required String name,
+      required String city,
+      required String link,
+      required String fileName,
+      required String location,
+      required String startDate,
+      required String endDate,
+      required int totalTicket}) async {
+    try {
+      await FirebaseFirestore.instance.collection('tickets').add({
+        'name': name,
+        'city': city,
+        'link': link,
+        'fileName': fileName,
+        'location': location,
+        'startDate': startDate,
+        'endDate': endDate,
+        'totalTicket':totalTicket,
+        'soldOut':0,
+        'createdOn': FieldValue.serverTimestamp(),
+      });
+      return 'done';
+    } catch (e) {
+      return 'error';
+    }
+  }
+
+//updateEvent=============================================================
+  static Future<String> updateEvent({
+    required String name,
+    required String city,
+    required String link,
+    required String location,
+    required String startDate,
+    required String endDate,
+    required String docId,
+    required String fileName,
+  }) async {
+    try {
+      await FirebaseFirestore.instance.collection('tickets').doc(docId).update({
+        'name': name,
+        'city': city,
+        'link': link,
+        'fileName': fileName,
+        'location': location,
+        'startDate': startDate,
+        'endDate': endDate,
+      });
+
+      return 'done';
+    } catch (e) {
+      return 'error';
+    }
+  }
 }

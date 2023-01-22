@@ -134,7 +134,7 @@ Widget textField(context, icons, String key, bool hintPass,
     keyboardType: keyboardType,
     controller: myController,
     style: TextStyle(
-      color: white,
+      color: Colors.grey[700],
       fontSize: textFieldSize,
     ),
     decoration: InputDecoration(
@@ -142,12 +142,12 @@ Widget textField(context, icons, String key, bool hintPass,
         filled: true,
         suffixIcon: suffixIcon,
         hintStyle: TextStyle(
-          color: white,
+          color: Colors.grey,
           fontSize: textFieldSize,
         ),
         fillColor: fillColor ?? textFieldColors,
         labelStyle: TextStyle(
-          color: white,
+          color: Colors.grey,
           fontSize: textFieldSize,
         ),
         border: OutlineInputBorder(

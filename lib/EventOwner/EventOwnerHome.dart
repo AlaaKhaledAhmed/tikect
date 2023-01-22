@@ -8,6 +8,7 @@ import '../Data/Firebase.dart';
 import '../Funcations/Funcation.dart';
 import '../Log/Logging.dart';
 import '../Messag/Messages.dart';
+import 'AddEvent.dart';
 
 class EventOwnerHome extends StatefulWidget {
   const EventOwnerHome({Key? key}) : super(key: key);
@@ -22,11 +23,16 @@ class _EventOwnerHomeState extends State<EventOwnerHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color.fromARGB(248, 241, 241, 237),
       appBar: AppBar(
         title: text(context, "Event Owner Home", mainTextSize, white),
         centerTitle: true,
         backgroundColor: iconColor,
+        leading:  IconButton(
+              onPressed: () {
+                goTo(context, const AddEvent());
+              },
+              icon: const Icon(Icons.add_circle_outline_rounded)),
         actions: [
           IconButton(
               onPressed: () {
@@ -122,7 +128,7 @@ class _EventOwnerHomeState extends State<EventOwnerHome> {
                         child: SizedBox(
                             width: MediaQuery.of(context).size.width,
                             child: Card(
-                              color: Colors.grey[50],
+                              color: Colors.white,
                               elevation: 8,
                               shape: RoundedRectangleBorder(
                                 side:

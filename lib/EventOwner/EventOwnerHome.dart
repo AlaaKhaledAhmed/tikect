@@ -90,7 +90,7 @@ class _EventOwnerHomeState extends State<EventOwnerHome> {
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2, //عدد العناصر في كل صف
               crossAxisSpacing: 0, // المسافات الراسية
-              childAspectRatio: 0.65, //حجم العناصر
+              childAspectRatio: 0.55, //حجم العناصر
               mainAxisSpacing: 0 //المسافات الافقية
 
               ),
@@ -121,7 +121,7 @@ class _EventOwnerHomeState extends State<EventOwnerHome> {
                     children: [
 //event details==========================================================================================
                       Positioned(
-                        top: 60.h,
+                        top: 120.h,
                         bottom: 10.h,
                         left: -3,
                         right: -3,
@@ -180,8 +180,8 @@ class _EventOwnerHomeState extends State<EventOwnerHome> {
                       ),
 //image==========================================================================================
                       Positioned(
-                        top: 10.h,
-                        bottom: 150.h,
+                        top: 30.h,
+                        bottom: 210.h,
                         left: 10.w,
                         right: 10.w,
                         child: SizedBox(

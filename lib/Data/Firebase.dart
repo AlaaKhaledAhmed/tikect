@@ -197,6 +197,8 @@ class Firbase {
       required String location,
       required String startDate,
       required String endDate,
+      required int price,
+      required String details,
       required int totalTicket}) async {
     try {
       await FirebaseFirestore.instance.collection('tickets').add({
@@ -208,6 +210,8 @@ class Firbase {
         'startDate': startDate,
         'endDate': endDate,
         'totalTicket':totalTicket,
+        'price':price,
+        'details':details,
         'soldOut':0,
         'createdOn': FieldValue.serverTimestamp(),
       });

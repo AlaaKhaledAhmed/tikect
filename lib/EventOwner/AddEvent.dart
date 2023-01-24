@@ -24,6 +24,8 @@ class _AddEventState extends State<AddEvent> {
   TextEditingController ticketNumbrtController = TextEditingController();
   TextEditingController stDateController = TextEditingController();
   TextEditingController enDateController = TextEditingController();
+  TextEditingController price = TextEditingController();
+  TextEditingController details = TextEditingController();
   GlobalKey<FormState> addKey = GlobalKey();
   Reference? fileRef;
   String? fileURL;
@@ -126,7 +128,21 @@ class _AddEventState extends State<AddEvent> {
                                                   .digitsOnly
                                             ]),
                                         SizedBox(height: 10.h),
+                                        //============================== price textField===============================================================
+                                        textField(
+                                            context,
+                                            Icons.money,
+                                            "Price",
+                                            false,
+                                            price,
+                                            manditary,
+                                            inputFormatters: [
+                                              FilteringTextInputFormatter
+                                                  .digitsOnly
+                                            ]),
+                                        SizedBox(height: 10.h),
                                         //============================== Start date textField===============================================================
+
                                         textField(
                                           context,
                                           Icons.date_range,
@@ -153,6 +169,16 @@ class _AddEventState extends State<AddEvent> {
                                         ),
                                         SizedBox(height: 10.h),
                                         //======================================================================================
+                                        textField(
+                                            context,
+                                            Icons.details,
+                                            "Details",
+                                            false,
+                                            details,
+                                            manditary,
+                                            ),
+                                        SizedBox(height: 10.h),
+                                        //============================== add bottom==============================================================
 
                                         const Spacer(),
                                         Container(
@@ -189,7 +215,13 @@ class _AddEventState extends State<AddEvent> {
                                                     fileURL = await fileRef!
                                                         .getDownloadURL();
                                                     Firbase.addEvent(
-                                                      totalTicket:int.parse(ticketNumbrtController.text),
+                                                            price: int.parse(
+                                                                price.text),
+                                                            details:
+                                                                details.text,
+                                                            totalTicket: int.parse(
+                                                                ticketNumbrtController
+                                                                    .text),
                                                             name: nameController
                                                                 .text,
                                                             city: cityController
@@ -239,7 +271,7 @@ class _AddEventState extends State<AddEvent> {
 //image==========================================================================================
                         Positioned(
                           top: 10.h,
-                          bottom: MediaQuery.of(context).size.height / 1.5,
+                          bottom: MediaQuery.of(context).size.height /1.8 ,
                           left: 10.w,
                           right: 10.w,
                           child: SizedBox(

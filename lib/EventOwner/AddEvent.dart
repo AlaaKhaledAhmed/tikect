@@ -55,7 +55,7 @@ class _AddEventState extends State<AddEvent> {
                       children: [
 //event details==========================================================================================
                         Positioned(
-                          top: 60.h,
+                          top: 120.h,
                           bottom: 10.h,
                           left: -3,
                           right: -3,
@@ -176,6 +176,8 @@ class _AddEventState extends State<AddEvent> {
                                             false,
                                             details,
                                             manditary,
+                                            max: 4,
+                                            minlime: 4
                                             ),
                                         SizedBox(height: 10.h),
                                         //============================== add bottom==============================================================
@@ -183,7 +185,7 @@ class _AddEventState extends State<AddEvent> {
                                         const Spacer(),
                                         Container(
                                           width: double.infinity,
-                                          height: 45.h,
+                                          height: 60.h,
                                           decoration: BoxDecoration(
                                               color: iconColor,
                                               //Colors.grey[700]!,

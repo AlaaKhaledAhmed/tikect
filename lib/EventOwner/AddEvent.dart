@@ -203,6 +203,7 @@ class _AddEventState extends State<AddEvent> {
                                                 if (file == null) {
                                                   lode(context, addData,
                                                       'Select Image');
+
                                                 } else {
                                                   lode(context, '', 'lode');
                                                   fileRef = FirebaseStorage

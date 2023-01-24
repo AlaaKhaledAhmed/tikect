@@ -231,16 +231,24 @@ class Firbase {
     required String endDate,
     required String docId,
     required String fileName,
+    required int price,
+    required String details,
+    required int totalTicket
   }) async {
     try {
       await FirebaseFirestore.instance.collection('tickets').doc(docId).update({
-        'name': name,
+     'name': name,
         'city': city,
         'link': link,
         'fileName': fileName,
         'location': location,
         'startDate': startDate,
         'endDate': endDate,
+        'totalTicket':totalTicket,
+        'price':price,
+        'details':details,
+        'soldOut':0,
+        
       });
 
       return 'done';

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tikect/EventOwner/UpdateEvent.dart';
 
 import '../Colors/Colors.dart';
 import '../Data/Firebase.dart';
@@ -28,11 +29,11 @@ class _EventOwnerHomeState extends State<EventOwnerHome> {
         title: text(context, "Event Owner Home", mainTextSize, white),
         centerTitle: true,
         backgroundColor: iconColor,
-        leading:  IconButton(
-              onPressed: () {
-                goTo(context, const AddEvent());
-              },
-              icon: const Icon(Icons.add_circle_outline_rounded)),
+        leading: IconButton(
+            onPressed: () {
+              goTo(context, const AddEvent());
+            },
+            icon: const Icon(Icons.add_circle_outline_rounded)),
         actions: [
           IconButton(
               onPressed: () {
@@ -82,140 +83,155 @@ class _EventOwnerHomeState extends State<EventOwnerHome> {
 
 //==============================================================
   Widget mainBody(BuildContext context, AsyncSnapshot snapshat) {
-    return
-        snapshat.data.docs.length > 0
-        ?
-        Expanded(
-      child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, //عدد العناصر في كل صف
-              crossAxisSpacing: 0, // المسافات الراسية
-              childAspectRatio: 0.55, //حجم العناصر
-              mainAxisSpacing: 0 //المسافات الافقية
+    return snapshat.data.docs.length > 0
+        ? Expanded(
+            child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, //عدد العناصر في كل صف
+                    crossAxisSpacing: 0, // المسافات الراسية
+                    childAspectRatio: 0.55, //حجم العناصر
+                    mainAxisSpacing: 0 //المسافات الافقية
 
-              ),
-          itemCount: snapshat.data.docs.length ,
-          itemBuilder: (context, i) {
-           var data = snapshat.data.docs[i].data();
-            return InkWell(
-                onLongPress: () {
-                  deleteInformation(i, snapshat.data.docs[i].id, snapshat);
-                },
-                onTap: () {
-                  // goTo(
-                  //     context,
-                  //     UpdateUser(
-                  //       name: data['name'],
-                  //       phone: data['phone'],
-                  //       docId: snapshat.data.docs[i].id,
-                  //     ));
-                },
+                    ),
+                itemCount: snapshat.data.docs.length,
+                itemBuilder: (context, i) {
+                  var data = snapshat.data.docs[i].data();
+                  return InkWell(
+                      onLongPress: () {
+                        deleteInformation(
+                            i, snapshat.data.docs[i].id, snapshat);
+                      },
+                      onTap: () {
+                        goTo(
+                            context,
+                            UpdateEvent(
+                              name: data['name'],
+                              city: data['city'],
+                              docId: snapshat.data.docs[i].id,
+                              detail: data['details'],
+                              endData:  data['endDate'],
+                              fileName:  data['fileName'],
+                              link:  data['link'],
+                              location :  data['location'],
+                              price: data['price'],
+                              stDate: data['startDate'],
+                              ticketNumbrt: data['totalTicket'],
+                            ));
+                      },
 
 //=========================================================
-                child: Card(
-                  elevation: 0,
-                  color: Colors.transparent,
-                  child: Stack(
-                    // alignment: Alignment.center,
-                    fit: StackFit.expand,
-                    children: [
+                      child: Card(
+                        elevation: 0,
+                        color: Colors.transparent,
+                        child: Stack(
+                          // alignment: Alignment.center,
+                          fit: StackFit.expand,
+                          children: [
 //event details==========================================================================================
-                      Positioned(
-                        top: 120.h,
-                        bottom: 10.h,
-                        left: -3,
-                        right: -3,
-                        child: SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            child: Card(
-                              color: Colors.white,
-                              elevation: 8,
-                              shape: RoundedRectangleBorder(
-                                side:
-                                    const BorderSide(color: Colors.transparent),
-                                borderRadius: BorderRadius.circular(
-                                    15.0.r), //<-- SEE HERE
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(10.0.w),
-                                child: SizedBox(
-                                  height: 140.h,
+                            Positioned(
+                              top: 120.h,
+                              bottom: 10.h,
+                              left: -3,
+                              right: -3,
+                              child: SizedBox(
                                   width: MediaQuery.of(context).size.width,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        height: 70.h,
+                                  child: Card(
+                                    color: Colors.white,
+                                    elevation: 8,
+                                    shape: RoundedRectangleBorder(
+                                      side: const BorderSide(
+                                          color: Colors.transparent),
+                                      borderRadius: BorderRadius.circular(
+                                          15.0.r), //<-- SEE HERE
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(10.0.w),
+                                      child: SizedBox(
+                                        height: 140.h,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              height: 70.h,
+                                            ),
+                                            text(context, data['startDate'],
+                                                mainTextSize, Colors.grey[900]!,
+                                                align: TextAlign.justify),
+                                            text(context, data['name'],
+                                                mainTextSize, Colors.grey[700]!,
+                                                align: TextAlign.justify),
+                                            text(context, data['location'],
+                                                mainTextSize, Colors.grey[500]!,
+                                                align: TextAlign.justify),
+                                            const Spacer(),
+                                            Container(
+                                              width: double.infinity,
+                                              decoration: BoxDecoration(
+                                                  color: iconColor,
+                                                  //Colors.grey[700]!,
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              10.r))),
+                                              margin:
+                                                  EdgeInsets.only(top: 10.h),
+                                              padding: EdgeInsets.all(11.w),
+                                              child: text(
+                                                  context,
+                                                  'Sold out ${data['soldOut']} of ${data['totalTicket']}',
+                                                  subTextSize + 2,
+                                                  white,
+                                                  align: TextAlign.justify),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                      text(context, data['startDate'],
-                                          mainTextSize, Colors.grey[900]!,
-                                          align: TextAlign.justify),
-                                      text(context, data['name'],
-                                          mainTextSize, Colors.grey[700]!,
-                                          align: TextAlign.justify),
-                                      text(context, data['location'],
-                                          mainTextSize, Colors.grey[500]!,
-                                          align: TextAlign.justify),
-                                      const Spacer(),
-                                      Container(
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                            color: iconColor,
-                                            //Colors.grey[700]!,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10.r))),
-                                        margin: EdgeInsets.only(top: 10.h),
-                                        padding: EdgeInsets.all(11.w),
-                                        child: text(context, 'Sold out ${data['soldOut']} of ${data['totalTicket']}',
-                                            subTextSize+2, white,
-                                            align: TextAlign.justify),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            )),
-                      ),
+                                    ),
+                                  )),
+                            ),
 //image==========================================================================================
-                      Positioned(
-                        top: 30.h,
-                        bottom: 210.h,
-                        left: 10.w,
-                        right: 10.w,
-                        child: SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            child: Card(
-                                color: white,
-                                elevation: 8,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                      5.0.r), //<-- SEE HERE
-                                ),
-                                child: ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5.0.r)),
-                                  child: Image.network(
-                                   data['link'],
-                                    fit: BoxFit.cover,
-                                  ),
-                                ))),
-                      ),
-                    ],
-                  ),
-                ));
-          }),
-    )
+                            Positioned(
+                              top: 30.h,
+                              bottom: 210.h,
+                              left: 10.w,
+                              right: 10.w,
+                              child: SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Card(
+                                      color: white,
+                                      elevation: 8,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            5.0.r), //<-- SEE HERE
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5.0.r)),
+                                        child: Image.network(
+                                          data['link'],
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ))),
+                            ),
+                          ],
+                        ),
+                      ));
+                }),
+          )
 
 //================================================================
-    : Center(
-        child: Padding(
-            padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height / 2),
-            child: text(context, 'Empty List', subTextSize, black,
-                fontWeight: FontWeight.bold)),
-      );
+        : Center(
+            child: Padding(
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height / 2),
+                child: text(context, 'Empty List', subTextSize, black,
+                    fontWeight: FontWeight.bold)),
+          );
   }
 
 //get section===============================================================================

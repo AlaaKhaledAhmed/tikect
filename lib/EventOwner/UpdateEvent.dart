@@ -10,7 +10,6 @@ import '../Funcations/Funcation.dart';
 import '../Messag/Messages.dart';
 import 'package:path/path.dart' as path;
 
-
 class UpdateEvent extends StatefulWidget {
   final String name;
   final String city;
@@ -71,6 +70,11 @@ class _UpdateEventState extends State<UpdateEvent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          title: text(context, 'Update Event', mainTextSize, white),
+          backgroundColor: iconColor,
+          centerTitle: true,
+        ),
         backgroundColor: white,
         body: LayoutBuilder(builder: (context, constraints) {
           return NotificationListener<OverscrollIndicatorNotification>(
@@ -87,296 +91,202 @@ class _UpdateEventState extends State<UpdateEvent> {
                   child: Card(
                     elevation: 0,
                     color: Colors.transparent,
-                    child: Stack(
-                      // alignment: Alignment.center,
-                      fit: StackFit.expand,
-                      children: [
-//event details==========================================================================================
-                        Positioned(
-                          top: 120.h,
-                          bottom: 10.h,
-                          left: -3,
-                          right: -3,
-                          child: SizedBox(
-                              width: MediaQuery.of(context).size.width,
+                    child: Form(
+                      key: addKey,
+                      child: Column(children: [
+                        SizedBox(
+                            height: 200.h,
+                                width: double.infinity,
+                            child: InkWell(
+                              onTap: () {
+                                getFile(context);
+                              },
                               child: Card(
-                                color: white,
-                                elevation: 8,
-                                shape: RoundedRectangleBorder(
-                                  side: const BorderSide(
-                                      color: Colors.transparent),
-                                  borderRadius: BorderRadius.circular(
-                                      15.0.r), //<-- SEE HERE
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.all(10.0.w),
-                                  child: Form(
-                                    key: addKey,
-                                    child: ListView(
-                                      // crossAxisAlignment:
-                                      //     CrossAxisAlignment.center,
-                                      // mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              4,
-                                        ),
-                                        //============================== name textField===============================================================
-                                        textField(
-                                          context,
-                                          Icons.event,
-                                          "Event name",
-                                          false,
-                                          nameController,
-                                          manditary,
-                                        ),
-                                        SizedBox(height: 10.h),
-                                        //============================== City textField===============================================================
-                                        textField(
-                                          context,
-                                          Icons.location_city_rounded,
-                                          "City name",
-                                          false,
-                                          cityController,
-                                          manditary,
-                                        ),
-                                        SizedBox(height: 10.h),
-                                        //============================== Location textField===============================================================
-                                        textField(
-                                          context,
-                                          Icons.location_on_rounded,
-                                          "Location",
-                                          false,
-                                          locationController,
-                                          manditary,
-                                        ),
-                                        //============================== Tickets textField===============================================================
-                                        SizedBox(height: 10.h),
-                                        textField(
-                                            context,
-                                            Icons.newspaper,
-                                            "Tickets number",
-                                            false,
-                                            ticketNumbrtController,
-                                            manditary,
-                                            inputFormatters: [
-                                              FilteringTextInputFormatter
-                                                  .digitsOnly
-                                            ]),
-                                        SizedBox(height: 10.h),
-                                        //============================== price textField===============================================================
-                                        textField(context, Icons.money, "Price",
-                                            false, price, manditary,
-                                            inputFormatters: [
-                                              FilteringTextInputFormatter
-                                                  .digitsOnly
-                                            ]),
-                                        SizedBox(height: 10.h),
-                                        //============================== Start date textField===============================================================
-
-                                        textField(
-                                          context,
-                                          Icons.date_range,
-                                          "Start date",
-                                          false,
-                                          stDateController,
-                                          manditary,
-                                          onTap: () {
-                                            onTapDate(stDateController);
-                                          },
-                                        ),
-                                        //============================== End date textField===============================================================
-                                        SizedBox(height: 10.h),
-                                        textField(
-                                          context,
-                                          Icons.date_range,
-                                          "End date",
-                                          false,
-                                          enDateController,
-                                          (value) {},
-                                          onTap: () {
-                                            onTapDate(enDateController);
-                                          },
-                                        ),
-                                        SizedBox(height: 10.h),
-                                        //======================================================================================
-                                        textField(
-                                            context,
-                                            Icons.details,
-                                            "Details",
-                                            false,
-                                            details,
-                                            manditary,
-                                            max: 4,
-                                            minlime: 4),
-                                        SizedBox(height: 10.h),
-                                        //============================== add bottom==============================================================
-
-                                        const Spacer(),
-                                        Container(
-                                          width: double.infinity,
-                                          height: 60.h,
-                                          decoration: BoxDecoration(
-                                              color: iconColor,
-                                              //Colors.grey[700]!,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(10.r))),
-                                          margin: EdgeInsets.only(top: 10.h),
-                                          padding: EdgeInsets.all(15.w),
-                                          child: InkWell(
-                                            onTap: () async {
-                                              FocusManager.instance.primaryFocus
-                                                  ?.unfocus();
-                                              if (addKey.currentState
-                                                      ?.validate() ==
-                                                  true) {
-                                                if (file == null) {
-                                                  Firbase.updateEvent(
-                                                          price: int.parse(
-                                                              price.text),
-                                                          details: details.text,
-                                                          totalTicket: int.parse(
-                                                              ticketNumbrtController
-                                                                  .text),
-                                                          name: nameController
-                                                              .text,
-                                                          city: cityController
-                                                              .text,
-                                                          link: widget.link,
-                                                          fileName:
-                                                              widget.fileName,
-                                                          location:
-                                                              locationController
-                                                                  .text,
-                                                          startDate:
-                                                              stDateController
-                                                                  .text,
-                                                          endDate:
-                                                              enDateController
-                                                                  .text,
-                                                          docId: widget.docId)
-                                                      .then((v) {
-                                                    print('================$v');
-                                                    if (v == 'done') {
-                                                      Navigator.pop(context);
-                                                     // Navigator.pop(context);
-                                                      lode(context, updateData,
-                                                          doneData);
-                                                    } else {
-                                                      Navigator.pop(context);
-                                                      lode(context, updateData,
-                                                          errorDat);
-                                                    }
-                                                  });
-                                                  //================================================================================================
-                                                } else {
-                                                  lode(context, '', 'lode');
-                                                  fileRef = FirebaseStorage
-                                                      .instance
-                                                      .ref('tickets')
-                                                      .child(path.basename(
-                                                          file!.path));
-
-                                                  await fileRef
-                                                      ?.putFile(file!)
-                                                      .then((getValue) async {
-                                                    fileURL = await fileRef!
-                                                        .getDownloadURL();
-                                                    Firbase.updateEvent(
-                                                            price: int.parse(
-                                                                price.text),
-                                                            details:
-                                                                details.text,
-                                                            totalTicket: int.parse(
-                                                                ticketNumbrtController
-                                                                    .text),
-                                                            name: nameController
-                                                                .text,
-                                                            city: cityController
-                                                                .text,
-                                                            link: fileURL!,
-                                                            fileName:
-                                                                path.basename(
-                                                                    file!.path),
-                                                            location:
-                                                                locationController
-                                                                    .text,
-                                                            startDate:
-                                                                stDateController
-                                                                    .text,
-                                                            endDate:
-                                                                enDateController
-                                                                    .text,
-                                                            docId: '')
-                                                        .then((v) {
-                                                      print(
-                                                          '================$v');
-                                                      if (v == 'done') {
-                                                        Navigator.pop(context);
-                                                       // Navigator.pop(context);
-                                                        lode(
-                                                            context,
-                                                            updateData,
-                                                            doneData);
-                                                      } else {
-                                                        Navigator.pop(context);
-                                                        lode(
-                                                            context,
-                                                            updateData,
-                                                            errorDat);
-                                                      }
-                                                    });
-                                                  });
-                                                }
-                                              }
-                                            },
-                                            child: text(context, 'Update Event',
-                                                mainTextSize, white,
-                                                align: TextAlign.center),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                  color: white,
+                                  elevation: 8,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        5.0.r), //<-- SEE HERE
                                   ),
-                                ),
-                              )),
-                        ),
-//image==========================================================================================
-                        Positioned(
-                          top: 10.h,
-                          bottom: MediaQuery.of(context).size.height / 1.8,
-                          left: 10.w,
-                          right: 10.w,
-                          child: SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              child: InkWell(
-                                onTap: () {
-                                  getFile(context);
-                                },
-                                child: Card(
-                                    color: white,
-                                    elevation: 8,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          5.0.r), //<-- SEE HERE
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(5.0.r)),
-                                      child: file == null
-                                          ? Image.network(widget.link,
-                                           fit: BoxFit.cover,
+                                  child: ClipRRect(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(5.0.r)),
+                                    child: file == null
+                                        ? Image.network(
+                                            widget.link,
+                                            fit: BoxFit.cover,
                                           )
-                                          : Image.file(
-                                              file!,
-                                              fit: BoxFit.cover,
-                                            ),
-                                    )),
-                              )),
+                                        : Image.file(
+                                            file!,
+                                            fit: BoxFit.cover,
+                                          ),
+                                  )),
+                            )),
+                      SizedBox(height: 10.h),
+                    //============================== name textField===============================================================
+                        textField(
+                          context,
+                          Icons.event,
+                          "Event name",
+                          false,
+                          nameController,
+                          manditary,
                         ),
-                      ],
+                        SizedBox(height: 10.h),
+                    //============================== City textField===============================================================
+                        textField(
+                          context,
+                          Icons.location_city_rounded,
+                          "City name",
+                          false,
+                          cityController,
+                          manditary,
+                        ),
+                        SizedBox(height: 10.h),
+                    //============================== Location textField===============================================================
+                        textField(
+                          context,
+                          Icons.location_on_rounded,
+                          "Location",
+                          false,
+                          locationController,
+                          manditary,
+                        ),
+                    //============================== Tickets textField===============================================================
+                        SizedBox(height: 10.h),
+                        textField(context, Icons.newspaper, "Tickets number",
+                            false, ticketNumbrtController, manditary,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ]),
+                        SizedBox(height: 10.h),
+                    //============================== price textField===============================================================
+                        textField(context, Icons.money, "Price", false, price,
+                            manditary, inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ]),
+                        SizedBox(height: 10.h),
+                    //============================== Start date textField===============================================================
+                    
+                        textField(
+                          context,
+                          Icons.date_range,
+                          "Start date",
+                          false,
+                          stDateController,
+                          manditary,
+                          onTap: () {
+                            onTapDate(stDateController);
+                          },
+                        ),
+//============================== End date textField===============================================================
+                        SizedBox(height: 10.h),
+                        textField(
+                          context,
+                          Icons.date_range,
+                          "End date",
+                          false,
+                          enDateController,
+                          (value) {},
+                          onTap: () {
+                            onTapDate(enDateController);
+                          },
+                        ),
+                        SizedBox(height: 10.h),
+//======================================================================================
+                        textField(context, Icons.details, "Details", false,
+                            details, manditary,
+                            max: 4, minlime: 4),
+                        SizedBox(height: 10.h),
+//============================== add bottom==============================================================
+                    
+                        const Spacer(),
+                        Container(
+                          width: double.infinity,
+                          height: 50.h,
+                          decoration: BoxDecoration(
+                              color: iconColor,
+                              //Colors.grey[700]!,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.r))),
+                          margin: EdgeInsets.only(top: 10.h),
+                          padding: EdgeInsets.all(15.w),
+                          child: InkWell(
+                            onTap: () async {
+                              FocusManager.instance.primaryFocus?.unfocus();
+                              if (addKey.currentState?.validate() == true) {
+                                if (file == null) {
+                                  Firbase.updateEvent(
+                                          price: int.parse(price.text),
+                                          details: details.text,
+                                          totalTicket: int.parse(
+                                              ticketNumbrtController.text),
+                                          name: nameController.text,
+                                          city: cityController.text,
+                                          link: widget.link,
+                                          fileName: widget.fileName,
+                                          location: locationController.text,
+                                          startDate: stDateController.text,
+                                          endDate: enDateController.text,
+                                          docId: widget.docId)
+                                      .then((v) {
+                                    print('================$v');
+                                    if (v == 'done') {
+                                      Navigator.pop(context);
+                                      // Navigator.pop(context);
+                                      lode(context, updateData, doneData);
+                                    } else {
+                                      Navigator.pop(context);
+                                      lode(context, updateData, errorDat);
+                                    }
+                                  });
+                                  //================================================================================================
+                                } else {
+                                  lode(context, '', 'lode');
+                                  fileRef = FirebaseStorage.instance
+                                      .ref('tickets')
+                                      .child(path.basename(file!.path));
+                                     
+                                  await fileRef
+                                      ?.putFile(file!)
+                                      .then((getValue) async {
+                                        
+                                    fileURL = await fileRef?.getDownloadURL();
+                                     print('await fileRef: ${ fileURL}');
+                                    Firbase.updateEvent(
+                                            price: int.parse(price.text),
+                                            details: details.text,
+                                            totalTicket: int.parse(
+                                                ticketNumbrtController.text),
+                                            name: nameController.text,
+                                            city: cityController.text,
+                                            link: "$fileURL!",
+                                            fileName: path.basename(file!.path),
+                                            location: locationController.text,
+                                            startDate: stDateController.text,
+                                            endDate: enDateController.text,
+                                           docId: widget.docId)
+                                        .then((v) {
+                                      print('================$v');
+                                      if (v == 'done') {
+                                         Navigator.pop(context);
+                                         Navigator.pop(context);
+                                        lode(context, updateData, doneData);
+                                      } else {
+                                        Navigator.pop(context);
+                                        lode(context, updateData, errorDat);
+                                      }
+                                    });
+                                  });
+                                }
+                              }
+                            },
+                            child: text(
+                                context, 'Update Event', mainTextSize, white,
+                                align: TextAlign.center),
+                          ),
+                        ),
+                      ]),
                     ),
                   ),
                 ),

@@ -235,9 +235,9 @@ class Firbase {
     required String details,
     required int totalTicket
   }) async {
-    try {
+   // try {
       await FirebaseFirestore.instance.collection('tickets').doc(docId).update({
-     'name': name,
+        'name': name,
         'city': city,
         'link': link,
         'fileName': fileName,
@@ -252,8 +252,8 @@ class Firbase {
       });
 
       return 'done';
-    } catch (e) {
-      return 'error';
-    }
+    // } catch (e) {
+    //   return 'error';
+    // }
   }
 }

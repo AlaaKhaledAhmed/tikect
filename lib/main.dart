@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'Colors/Colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'EventOwner/EvenOwnerNavBar.dart';
 import 'EventOwner/EventOwnerHome.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
                 child: widget!,
               );
             },
-            home:const EventOwnerHome()
+            home: EventNavBar()
 
         );
       },

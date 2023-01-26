@@ -30,12 +30,7 @@ class _SoldOutState extends State<SoldOut> {
         title: text(context, "Fully sold tickets", mainTextSize, white),
         centerTitle: true,
         backgroundColor: iconColor,
-        leading: IconButton(
-            onPressed: () {
-              goTo(context, const AddEvent());
-            },
-            icon: const Icon(Icons.add_circle_outline_rounded)),
-        actions: [
+         actions: [
           IconButton(
               onPressed: () {
                 FirebaseAuth.instance.signOut();
@@ -55,7 +50,7 @@ class _SoldOutState extends State<SoldOut> {
             children: [
               StreamBuilder(
                 stream: ticketsCollection
-                    // .orderBy('')
+                   .where('soldOut', isEqualTo: 'totalTicket')
                     .snapshots(),
                 builder: (context, AsyncSnapshot snapshat) {
                   if (snapshat.hasError) {
@@ -98,27 +93,24 @@ class _SoldOutState extends State<SoldOut> {
                 itemBuilder: (context, i) {
                   var data = snapshat.data.docs[i].data();
                   return InkWell(
-                      onLongPress: () {
-                        deleteInformation(
-                            i, snapshat.data.docs[i].id, snapshat);
-                      },
-                      onTap: () {
-                        goTo(
-                            context,
-                            UpdateEvent(
-                              name: data['name'],
-                              city: data['city'],
-                              docId: snapshat.data.docs[i].id,
-                              detail: data['details'],
-                              endData: data['endDate'],
-                              fileName: data['fileName'],
-                              link: data['link'],
-                              location: data['location'],
-                              price: data['price'],
-                              stDate: data['startDate'],
-                              ticketNumbrt: data['totalTicket'],
-                            ));
-                      },
+                      
+                      // onTap: () {
+                      //   goTo(
+                      //       context,
+                      //       UpdateEvent(
+                      //         name: data['name'],
+                      //         city: data['city'],
+                      //         docId: snapshat.data.docs[i].id,
+                      //         detail: data['details'],
+                      //         endData: data['endDate'],
+                      //         fileName: data['fileName'],
+                      //         link: data['link'],
+                      //         location: data['location'],
+                      //         price: data['price'],
+                      //         stDate: data['startDate'],
+                      //         ticketNumbrt: data['totalTicket'],
+                      //       ));
+                      // },
 
 //=========================================================
                       child: SizedBox(
@@ -223,49 +215,5 @@ class _SoldOutState extends State<SoldOut> {
   }
 
 //delete====================================================================
-  deleteInformation(i, String id, snapshat) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return WillPopScope(
-          onWillPop: () async {
-            return false;
-          },
-          child: AlertDialog(
-            title: text(
-              context,
-              deleteData,
-              bottomSize,
-              black,
-              fontWeight: FontWeight.bold,
-              align: TextAlign.center,
-            ),
-            content: text(context, confirmDelete, bottomSize, Colors.grey,
-                fontWeight: FontWeight.bold, align: TextAlign.left),
-            actions: [
-              FlatButton(
-                onPressed: () async {
-                  Navigator.of(context).pop(true);
-
-                  Firbase.delete(docId: id, collection: 'tickets')
-                      .then((String v) {
-                    if (v == 'done') {
-                    } else {}
-                  });
-                },
-                child: text(context, 'Yes', bottomSize, red!,
-                    fontWeight: FontWeight.bold),
-              ),
-              FlatButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: text(context, 'No', bottomSize, black,
-                    fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+  
 }

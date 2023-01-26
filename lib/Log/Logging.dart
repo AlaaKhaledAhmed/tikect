@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Colors/Colors.dart';
 import '../Admin/AdminHome.dart';
 import '../Data/Firebase.dart';
-import '../EventOwner/EventOwnerHome.dart';
+import '../EventOwner/showEvent.dart';
 import '../Funcations/Funcation.dart';
 import '../Icons/Icons.dart';
 import '../Messag/Messages.dart';
@@ -125,7 +125,7 @@ class _LogInState extends State<LogIn> {
                               if (element.data()['type'] == 'user') {
                                 goToReplace(context, const AdminHome());
                               } else if (element.data()['type'] == 'eventOwner') {
-                               goToReplace(context,const EventOwnerHome());
+                               goToReplace(context,const ShowEvent());
                               } else{
                                 goToReplace(context, const AdminHome());
                               }

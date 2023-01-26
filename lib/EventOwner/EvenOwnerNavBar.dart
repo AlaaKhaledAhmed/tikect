@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
-import 'package:tikect/EventOwner/EventOwnerHome.dart';
+import 'package:tikect/EventOwner/ManageTicketChecker/ShowTicketChecker.dart';
+import 'package:tikect/EventOwner/showEvent.dart';
 
 import 'SoldOut.dart';
 
@@ -15,9 +16,9 @@ class _EventNavBarState extends State<EventNavBar> {
   int selectedIndex = 1;
   PageController? pageController;
   List<Widget> page = [
+    const ShowTicketChecker(),
+    const ShowEvent(),
     const SoldOut(),
-    const EventOwnerHome(),
-    const EventOwnerHome(),
   ];
   @override
   void initState() {

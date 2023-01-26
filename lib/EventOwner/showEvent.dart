@@ -11,14 +11,14 @@ import '../Log/Logging.dart';
 import '../Messag/Messages.dart';
 import 'AddEvent.dart';
 
-class EventOwnerHome extends StatefulWidget {
-  const EventOwnerHome({Key? key}) : super(key: key);
+class ShowEvent extends StatefulWidget {
+  const ShowEvent({Key? key}) : super(key: key);
 
   @override
-  State<EventOwnerHome> createState() => _EventOwnerHomeState();
+  State<ShowEvent> createState() => _ShowEventState();
 }
 
-class _EventOwnerHomeState extends State<EventOwnerHome> {
+class _ShowEventState extends State<ShowEvent> {
   CollectionReference ticketsCollection =
       FirebaseFirestore.instance.collection("tickets");
   @override
@@ -89,7 +89,7 @@ class _EventOwnerHomeState extends State<EventOwnerHome> {
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2, //عدد العناصر في كل صف
                     crossAxisSpacing: 0, // المسافات الراسية
-                    childAspectRatio: 0.55, //حجم العناصر
+                    childAspectRatio: 0.75, //حجم العناصر
                     mainAxisSpacing: 0 //المسافات الافقية
 
                     ),
@@ -109,10 +109,10 @@ class _EventOwnerHomeState extends State<EventOwnerHome> {
                               city: data['city'],
                               docId: snapshat.data.docs[i].id,
                               detail: data['details'],
-                              endData:  data['endDate'],
-                              fileName:  data['fileName'],
-                              link:  data['link'],
-                              location :  data['location'],
+                              endData: data['endDate'],
+                              fileName: data['fileName'],
+                              link: data['link'],
+                              location: data['location'],
                               price: data['price'],
                               stDate: data['startDate'],
                               ticketNumbrt: data['totalTicket'],
@@ -120,91 +120,21 @@ class _EventOwnerHomeState extends State<EventOwnerHome> {
                       },
 
 //=========================================================
-                      child: Card(
-                        elevation: 0,
-                        color: Colors.transparent,
-                        child: Stack(
-                          // alignment: Alignment.center,
-                          fit: StackFit.expand,
-                          children: [
-//event details==========================================================================================
-                            Positioned(
-                              top: 120.h,
-                              bottom: 10.h,
-                              left: -3,
-                              right: -3,
-                              child: SizedBox(
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Card(
-                                    color: Colors.white,
-                                    elevation: 8,
-                                    shape: RoundedRectangleBorder(
-                                      side: const BorderSide(
-                                          color: Colors.transparent),
-                                      borderRadius: BorderRadius.circular(
-                                          15.0.r), //<-- SEE HERE
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(10.0.w),
-                                      child: SizedBox(
-                                        height: 140.h,
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              height: 70.h,
-                                            ),
-                                            text(context, data['startDate'],
-                                                mainTextSize, Colors.grey[900]!,
-                                                align: TextAlign.justify),
-                                            text(context, data['name'],
-                                                mainTextSize, Colors.grey[700]!,
-                                                align: TextAlign.justify),
-                                            text(context, data['location'],
-                                                mainTextSize, Colors.grey[500]!,
-                                                align: TextAlign.justify),
-                                            const Spacer(),
-                                            Container(
-                                              width: double.infinity,
-                                              decoration: BoxDecoration(
-                                                  color: iconColor,
-                                                  //Colors.grey[700]!,
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              10.r))),
-                                              margin:
-                                                  EdgeInsets.only(top: 10.h),
-                                              padding: EdgeInsets.all(11.w),
-                                              child: text(
-                                                  context,
-                                                  'Sold out ${data['soldOut']} of ${data['totalTicket']}',
-                                                  subTextSize + 2,
-                                                  white,
-                                                  align: TextAlign.justify),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  )),
-                            ),
-//image==========================================================================================
-                            Positioned(
-                              top: 30.h,
-                              bottom: 210.h,
-                              left: 10.w,
-                              right: 10.w,
-                              child: SizedBox(
+                      child: SizedBox(
+                        height: double.infinity,
+                        width: double.infinity,
+                        child: Card(
+                          elevation: 10,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                  height: 120.h,
                                   width: MediaQuery.of(context).size.width,
                                   child: Card(
                                       color: white,
-                                      elevation: 8,
+                                      elevation: 3,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(
                                             5.0.r), //<-- SEE HERE
@@ -217,8 +147,46 @@ class _EventOwnerHomeState extends State<EventOwnerHome> {
                                           fit: BoxFit.cover,
                                         ),
                                       ))),
-                            ),
-                          ],
+//============================================================================================
+
+                              Padding(
+                                padding: EdgeInsets.only(left: 10.0.w,top:5.h),
+                                child: text(context, data['startDate'],
+                                    mainTextSize, Colors.grey[900]!,
+                                    align: TextAlign.justify),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 10.0.w),
+                                child: text(context, data['name'], mainTextSize,
+                                    Colors.grey[700]!,
+                                    align: TextAlign.justify),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 10.0.w),
+                                child: text(context, data['location'],
+                                    mainTextSize, Colors.grey[500]!,
+                                    align: TextAlign.justify),
+                              ),
+//============================================================================================
+                              const Spacer(),
+                              Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    color: iconColor,
+                                    //Colors.grey[700]!,
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(10.r))),
+                                margin: EdgeInsets.all(10.r),
+                                padding: EdgeInsets.all(11.r),
+                                child: text(
+                                    context,
+                                    'Sold out ${data['soldOut']} of ${data['totalTicket']}',
+                                    subTextSize + 2,
+                                    white,
+                                    align: TextAlign.justify),
+                              ),
+                            ],
+                          ),
                         ),
                       ));
                 }),

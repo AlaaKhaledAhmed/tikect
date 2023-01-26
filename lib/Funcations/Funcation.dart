@@ -383,7 +383,7 @@ lode(context, String title, String content,
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 appBar(context, String pageName, {icon, onPress, icon2, onPress2}) {
   return AppBar(
-    title: text(context, pageName, mainTextSize, textColor),
+    title: text(context, pageName, mainTextSize, white),
     centerTitle: true,
     actions: [
       IconButton(

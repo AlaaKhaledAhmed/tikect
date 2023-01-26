@@ -56,6 +56,7 @@ class Firbase {
     required String email,
     required String password,
     required String phone,
+    required String type,
   }) async {
     try {
       //add user information
@@ -74,7 +75,7 @@ class Firbase {
           'userId': userCredential.user?.uid,
           'password': password,
           'email': email,
-          'type': 'eventOwner',
+          'type': type,
           'phone': phone
         });
         return 'done';

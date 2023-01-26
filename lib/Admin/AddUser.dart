@@ -108,6 +108,7 @@ class _AddUserState extends State<AddUser> {
                                   if (addKey.currentState?.validate() == true) {
                                     lode(context, '', 'lode');
                                     Firbase.singUpAccountEventOwner(
+                                      type: 'eventOwner',
                                             name: nameController.text,
                                             email: emailController.text,
                                             password: passwordController.text,

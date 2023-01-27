@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tikect/EventOwner/ManageTicketChecker/ShowTicketChecker.dart';
 import '../../Colors/Colors.dart';
 import '../Admin/AdminHome.dart';
 import '../Data/Firebase.dart';
-import '../EventOwner/showEvent.dart';
+import '../EventOwner/ManageEvent/showEvent.dart';
 import '../Funcations/Funcation.dart';
 import '../Icons/Icons.dart';
 import '../Messag/Messages.dart';
@@ -126,6 +127,8 @@ class _LogInState extends State<LogIn> {
                                 goToReplace(context, const AdminHome());
                               } else if (element.data()['type'] == 'eventOwner') {
                                goToReplace(context,const ShowEvent());
+                              } else if (element.data()['type'] == 'ticketChecker') {
+                               goToReplace(context,const ShowTicketChecker());
                               } else{
                                 goToReplace(context, const AdminHome());
                               }

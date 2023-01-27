@@ -2,13 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tikect/EventOwner/UpdateEvent.dart';
+import'package:tikect/Data/Firebase.dart';
+import 'package:tikect/EventOwner/ManageEvent/UpdateEvent.dart';
 
-import '../Colors/Colors.dart';
-import '../Data/Firebase.dart';
-import '../Funcations/Funcation.dart';
-import '../Log/Logging.dart';
-import '../Messag/Messages.dart';
+import '../../Colors/Colors.dart';
+import '../../Funcations/Funcation.dart';
+import '../../Log/Logging.dart';
+import '../../Messag/Messages.dart';
 import 'AddEvent.dart';
 
 class ShowEvent extends StatefulWidget {

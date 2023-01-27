@@ -3,14 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tikect/EventOwner/UpdateEvent.dart';
-
 import '../Colors/Colors.dart';
 import '../Data/Firebase.dart';
 import '../Funcations/Funcation.dart';
 import '../Log/Logging.dart';
 import '../Messag/Messages.dart';
-import 'AddEvent.dart';
+import 'ManageEvent/AddEvent.dart';
 
 class SoldOut extends StatefulWidget {
   const SoldOut({Key? key}) : super(key: key);

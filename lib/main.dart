@@ -4,7 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'Colors/Colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'EventOwner/EvenOwnerNavBar.dart';
-import 'EventOwner/showEvent.dart';
+import 'User/UserHome.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
                 child: widget!,
               );
             },
-            home: EventNavBar()
+            home: UserHome()
 
         );
       },

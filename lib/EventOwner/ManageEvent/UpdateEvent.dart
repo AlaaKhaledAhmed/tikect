@@ -4,10 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:file_picker/file_picker.dart';
-import '../Colors/Colors.dart';
-import '../Data/Firebase.dart';
-import '../Funcations/Funcation.dart';
-import '../Messag/Messages.dart';
+import'package:tikect/Data/Firebase.dart';
+import '../../Colors/Colors.dart';
+import '../../Funcations/Funcation.dart';
+import '../../Messag/Messages.dart';
 import 'package:path/path.dart' as path;
 
 class UpdateEvent extends StatefulWidget {

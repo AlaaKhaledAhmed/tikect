@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:tikect/EventOwner/ManageTicketChecker/ShowTicketChecker.dart';
-import 'package:tikect/EventOwner/showEvent.dart';
-
+  
+import 'ManageEvent/showEvent.dart';
 import 'SoldOut.dart';
 
 class EventNavBar extends StatefulWidget {

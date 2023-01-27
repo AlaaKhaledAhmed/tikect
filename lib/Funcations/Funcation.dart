@@ -87,6 +87,19 @@ String? notManditary(value) {
   return null;
 }
 
+String? validPhone(value) {
+  if (value.isEmpty) {
+    return "Empty Data";
+  }
+  if (!value.startsWith('+')) {
+    return 'must add country code start with +';
+  }
+  if (value.length < 13 || value.length > 13) {
+    return 'must be 12 digits with contry code';
+  }
+  
+  return null;
+}
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 String? emile(value) {
@@ -118,6 +131,7 @@ String? password(value) {
 Widget textField(context, icons, String key, bool hintPass,
     TextEditingController myController, myValued,
     {Widget? suffixIcon,
+     prefixText,
     //bool logoColors = false,
     fillColor,
     minlime=1,
@@ -176,7 +190,8 @@ Widget textField(context, icons, String key, bool hintPass,
             width: 1.0,
           ),
         ),
-        prefixIcon: Icon(icons, color: iconColor, size: 25.sp),
+        prefixIcon:Icon(icons, color: iconColor, size: 25.sp),
+        prefixText:prefixText ,
         labelText: key,
         hintText: hintText,
         errorStyle: TextStyle(color: Colors.red, fontSize: 13.0.sp),

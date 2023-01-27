@@ -96,7 +96,7 @@ class _AddUserState extends State<AddUser> {
                                   "Phone",
                                   false,
                                   phoneController,
-                                  (V){},
+                                  validPhone,
                                 ),
                                 SizedBox(height: 10.h),
                                 const Spacer(

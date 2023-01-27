@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:counter_button/counter_button.dart';
@@ -6,6 +8,7 @@ import 'package:counter_button/counter_button.dart';
 import '../../Colors/Colors.dart';
 import '../../Funcations/Funcation.dart';
 import '../../Messag/Messages.dart';
+import 'VerificationCode.dart';
 
 class Details extends StatefulWidget {
   final String name;
@@ -40,6 +43,10 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
+  TextEditingController phoneController = TextEditingController();
+  GlobalKey<FormState> addKey = GlobalKey();
+
+  bool isPhonevisible = false;
   int? totalPrice;
   int? remindTicket;
   int total = 1;
@@ -143,8 +150,8 @@ class _DetailsState extends State<Details> {
                 onChange: (int val) {
                   setState(() {
                     total = val;
-                    if(total > 0 &&total <= remindTicket!){
-                     totalPrice=total*widget.price;
+                    if (total > 0 && total <= remindTicket!) {
+                      totalPrice = total * widget.price;
                     }
                   });
                 },
@@ -159,18 +166,75 @@ class _DetailsState extends State<Details> {
             SizedBox(
               height: 10.h,
             ),
+//============================== phone textField===============================================================
+            Visibility(
+              visible: isPhonevisible,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.w),
+                child: Form(
+                  key: addKey,
+                  child: textField(context, Icons.phone, "Phone", false,
+                      phoneController, validPhone
+                      //(j) {},
+                      ),
+                ),
+              ),
+            ),
+            Visibility(
+              visible: isPhonevisible,
+              child: SizedBox(
+                height: 10.h,
+              ),
+            ),
 //buy===========================================================
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: 15.w,
               ),
-              child: bottom(context, 'BUY', textColor, () {
+              child: bottom(context, 'BUY', white, () async {
                 if (total <= 0) {
-                  lode(context, '', 'You must select at least 1');
+                  lode(context, 'BUY', 'You must select at least 1');
                 } else if (total > remindTicket!) {
-                  lode(context, '', 'The quantity is not enough');
+                  lode(context, 'BUY', 'The quantity is not enough');
                 } else {
-                  print('done');
+                  setState(() {
+                    isPhonevisible = true;
+                  });
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  if (addKey.currentState?.validate() == true) {
+                    print(phoneController.text);
+                    await FirebaseAuth.instance.verifyPhoneNumber(
+                      phoneNumber: phoneController.text,
+                      //t
+                      verificationCompleted:
+                          (PhoneAuthCredential credential) async {
+                        await FirebaseAuth.instance
+                            .signInWithCredential(credential)
+                            .then((value) async {
+                          if (value.user != null) {
+                            print("Done !!" "verificationCompleted");
+                          } else {
+                            lode(context, 'Error',
+                                'Failed ');
+                          }
+                        }).catchError((e) {
+                          lode(context, 'Error',
+                              'Something Went Wrong: ${e.toString()}');
+                        });
+                      },
+                      verificationFailed: (FirebaseAuthException e) {
+                        if (e.code == 'invalid-phone-number') {
+                          lode(context, 'verification', 'invalid phone number');
+                        }
+                      },
+                      codeSent:
+                          (String verificationId, int? resendToken) async {
+                        goTo(context,
+                            VerificationCode(verificationId: verificationId));
+                      },
+                      codeAutoRetrievalTimeout: (String verificationId) {},
+                    );
+                  }
                 }
               }, backgroundColor: iconColor),
             )

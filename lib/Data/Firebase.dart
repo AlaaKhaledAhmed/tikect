@@ -210,10 +210,10 @@ class Firbase {
         'location': location,
         'startDate': startDate,
         'endDate': endDate,
-        'totalTicket':totalTicket,
-        'price':price,
-        'details':details,
-        'soldOut':0,
+        'totalTicket': totalTicket,
+        'price': price,
+        'details': details,
+        'soldOut': 0,
         'createdOn': FieldValue.serverTimestamp(),
       });
       return 'done';
@@ -223,38 +223,60 @@ class Firbase {
   }
 
 //updateEvent=============================================================
-  static Future<String> updateEvent({
-    required String name,
-    required String city,
-    required String link,
-    required String location,
-    required String startDate,
-    required String endDate,
-    required String docId,
-    required String fileName,
-    required int price,
-    required String details,
-    required int totalTicket
-  }) async {
-   // try {
-      await FirebaseFirestore.instance.collection('tickets').doc(docId).update({
-        'name': name,
-        'city': city,
-        'link': link,
-        'fileName': fileName,
-        'location': location,
-        'startDate': startDate,
-        'endDate': endDate,
-        'totalTicket':totalTicket,
-        'price':price,
-        'details':details,
-        'soldOut':0,
-        
-      });
+  static Future<String> updateEvent(
+      {required String name,
+      required String city,
+      required String link,
+      required String location,
+      required String startDate,
+      required String endDate,
+      required String docId,
+      required String fileName,
+      required int price,
+      required String details,
+      required int totalTicket}) async {
+    // try {
+    await FirebaseFirestore.instance.collection('tickets').doc(docId).update({
+      'name': name,
+      'city': city,
+      'link': link,
+      'fileName': fileName,
+      'location': location,
+      'startDate': startDate,
+      'endDate': endDate,
+      'totalTicket': totalTicket,
+      'price': price,
+      'details': details,
+      'soldOut': 0,
+    });
 
-      return 'done';
+    return 'done';
     // } catch (e) {
     //   return 'error';
     // }
+  }
+//=======================check phone number method======================================
+
+  static Future<String> checkPhoneNumber({
+    required String phone,
+  }) async {
+    try {
+      await FirebaseAuth.instance.verifyPhoneNumber(
+          phoneNumber: phone,
+          verificationCompleted: (e){},
+          verificationFailed: (e){},
+          codeSent: (String verification, int?token){},
+          codeAutoRetrievalTimeout: (e){});
+    } on FirebaseException catch (e) {
+      if (e.code == 'weak-password') {
+        return 'weak-password';
+      }
+      if (e.code == 'email-already-in-use') {
+        return 'email-already-in-use';
+      }
+    } catch (e) {
+      return e.toString();
+    }
+    return 'error';
   }
 }

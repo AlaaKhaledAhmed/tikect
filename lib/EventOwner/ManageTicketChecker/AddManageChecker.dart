@@ -97,7 +97,7 @@ class _AddShowTicketCheckerState extends State<AddShowTicketChecker> {
                                   "Phone",
                                   false,
                                   phoneController,
-                                  manditary,
+                                  validPhone,
                                 ),
                                 SizedBox(height: 10.h),
                                 const Spacer(

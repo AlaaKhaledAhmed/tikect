@@ -154,7 +154,7 @@ class _SoldOutState extends State<SoldOut> {
                               ),
                               Padding(
                                 padding: EdgeInsets.only(left: 10.0.w),
-                                child: text(context, data['location'],
+                                child: text(context, data['city'],
                                     mainTextSize, Colors.grey[500]!,
                                     align: TextAlign.justify),
                               ),

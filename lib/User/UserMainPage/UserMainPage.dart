@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tikect/User/UserMainPage/Details.dart';
 import '../../Colors/Colors.dart';
 import '../../Funcations/Funcation.dart';
 import '../../Log/Logging.dart';
@@ -154,7 +155,23 @@ class _UserMainPageState extends State<UserMainPage> {
             itemBuilder: (context, i) {
               var data = snapshat.data.docs[i].data();
               return InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    goTo(context, Details(
+                       name: data['name'],
+                              city: data['city'],
+                              docId: snapshat.data.docs[i].id,
+                              detail: data['details'],
+                              endData: data['endDate'],
+                              fileName: data['fileName'],
+                              link: data['link'],
+                              location: data['location'],
+                              price: data['price'],
+                              stDate: data['startDate'],
+                              ticketNumbrt: data['totalTicket'],
+                             soldOut :data['soldOut'],
+                            
+                    ));
+                  },
 
 //=========================================================
                   child: SizedBox(
@@ -200,7 +217,7 @@ class _UserMainPageState extends State<UserMainPage> {
                           ),
                           Padding(
                             padding: EdgeInsets.only(left: 10.0.w),
-                            child: text(context, data['location'], mainTextSize,
+                            child: text(context, data['city'], mainTextSize,
                                 Colors.grey[500]!,
                                 align: TextAlign.justify),
                           ),

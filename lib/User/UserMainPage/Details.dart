@@ -229,6 +229,7 @@ class _DetailsState extends State<Details> {
                       },
                       codeSent:
                           (String verificationId, int? resendToken) async {
+                            lode(context, 'lode', '');
                         goTo(context,
                             VerificationCode(verificationId: verificationId));
                       },

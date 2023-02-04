@@ -36,7 +36,7 @@ class _VerificationCodeState extends State<VerificationCode> {
             if (FirebaseAuth.instance.currentUser != null) {
               print('dddddddddone');
             } else {
-              print('Eroooooooooooor');
+             32;
             }
           }, backgroundColor: iconColor),
         ),

@@ -29,14 +29,14 @@ class _VerificationCodeState extends State<VerificationCode> {
           child: bottom(context, 'check', textColor, () async {
             // in otp page Create a PhoneAuthCredential with the code
             PhoneAuthCredential credential = PhoneAuthProvider.credential(
-                verificationId: widget.verificationId, smsCode: '082382');
+                verificationId: widget.verificationId, smsCode: '455721');
 
             // Sign the user in (or link) with the credential
             await FirebaseAuth.instance.signInWithCredential(credential);
             if (FirebaseAuth.instance.currentUser != null) {
-              print('dddddddddone');
+              print('corrrrrrrect code');
             } else {
-             32;
+             print('Not corrrrrrrect code');
             }
           }, backgroundColor: iconColor),
         ),

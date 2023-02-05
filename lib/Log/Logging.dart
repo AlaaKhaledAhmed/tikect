@@ -5,10 +5,12 @@ import 'package:tikect/EventOwner/ManageTicketChecker/ShowTicketChecker.dart';
 import '../../Colors/Colors.dart';
 import '../Admin/AdminHome.dart';
 import '../Data/Firebase.dart';
+import '../EventOwner/EvenOwnerNavBar.dart';
 import '../EventOwner/ManageEvent/showEvent.dart';
 import '../Funcations/Funcation.dart';
 import '../Icons/Icons.dart';
 import '../Messag/Messages.dart';
+import '../TicketChecker/TicketChecker.dart';
 import '../User/UserHome.dart';
 import 'SingUp.dart';
 
@@ -43,18 +45,18 @@ class _LogInState extends State<LogIn> {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: SingleChildScrollView(
             child: Column(
-
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
-                SizedBox(height:150.h),
- //==============================logo image===============================================================
+                SizedBox(height: 150.h),
+                //==============================logo image===============================================================
                 CircleAvatar(
                   radius: 80.r,
                   backgroundColor: iconColor,
-                  backgroundImage:AssetImage(logoImage) ,
+                  backgroundImage: const AssetImage("assets/image/logo.jpg"),
                 ),
+
                 // icon(),
                 SizedBox(
                   height: 15.h,
@@ -65,7 +67,7 @@ class _LogInState extends State<LogIn> {
                 SizedBox(
                   height: 40.h,
                 ),
- //==============================email textField===============================================================
+                //==============================email textField===============================================================
                 textField(
                   context,
                   emailIcon,
@@ -91,7 +93,7 @@ class _LogInState extends State<LogIn> {
                   height: 10.h,
                 ),
 //================================login bottom ===============================================================
-               bottom(
+                bottom(
                   context,
                   "Login",
                   Colors.white,
@@ -111,7 +113,7 @@ class _LogInState extends State<LogIn> {
                           lode(context, login, userNotFound);
                         } else if (v == 'wrong-password') {
                           Navigator.pop(context);
-                           lode(context, login, userNotFound);
+                          lode(context, login, userNotFound);
                         } else {
                           print('respoms is: $v');
                           FirebaseFirestore.instance
@@ -119,17 +121,16 @@ class _LogInState extends State<LogIn> {
                               .where('userId', isEqualTo: v)
                               .get()
                               .then((value) {
-
                             Navigator.pop(context);
                             value.docs.forEach((element) {
-                                print('respoms is: $v');
+                              print('respoms is: $v');
                               if (element.data()['type'] == 'user') {
-                                goToReplace(context, const AdminHome());
-                              } else if (element.data()['type'] == 'eventOwner') {
-                               goToReplace(context,const ShowEvent());
-                              } else if (element.data()['type'] == 'ticketChecker') {
-                               goToReplace(context,const ShowTicketChecker());
-                              } else{
+                                goToReplace(context, const UserHome());
+                              } else if (element.data()['type'] =='eventOwner') {
+                                goToReplace(context, const EventNavBar());
+                              } else if (element.data()['type'] =='ticketChecker') {
+                                goToReplace(context, const TicketChecker());
+                              } else {
                                 goToReplace(context, const AdminHome());
                               }
                             });
@@ -147,16 +148,14 @@ class _LogInState extends State<LogIn> {
                 InkWell(
                     child: text(context, "Create Account", 14, black),
                     onTap: () {
-                     goTo(context, SingUp());
+                      goTo(context, SingUp());
                     }),
                 SizedBox(
                   height: 10.h,
                 ),
                 InkWell(
                     child: text(context, "Reset Password", 14, black),
-                    onTap: () {
-
-                    }),
+                    onTap: () {}),
               ],
             ),
           ),

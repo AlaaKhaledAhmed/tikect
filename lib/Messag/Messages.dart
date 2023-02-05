@@ -1,7 +1,7 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
-String logoImage="assets/image/logo.png";
+String logoImage="assets/image/logo.jpg";
 double mainTextSize=20.sp;
 double subTextSize=15.sp;
 double textFieldSize=15.sp;

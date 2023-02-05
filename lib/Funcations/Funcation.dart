@@ -27,7 +27,7 @@ Widget bottom(context, String key, Color textColor, onPressed,
       style: ButtonStyle(
         elevation: MaterialStateProperty.all(evaluation),
         backgroundColor: MaterialStateProperty.all(backgroundColor),
-        foregroundColor: MaterialStateProperty.all(textColor),
+        foregroundColor: MaterialStateProperty.all(Colors.black),
         padding: MaterialStateProperty.all(EdgeInsets.symmetric(
             horizontal: horizontal.w, vertical: vertical.h)),
       ),

@@ -130,7 +130,7 @@ class _UserMainPageState extends State<UserMainPage> {
                     Expanded(
                         child: SizedBox(
                             height: 330.h,
-                            width: 240.w,
+                            width: double.infinity,
                             child: mainBody(context, snapshat))),
                   ],
                 )
@@ -151,6 +151,7 @@ class _UserMainPageState extends State<UserMainPage> {
   Widget mainBody(BuildContext context, AsyncSnapshot snapshat) {
     return snapshat.data.docs.length > 0
         ? ListView.builder(
+          scrollDirection: Axis.horizontal,
             itemCount: snapshat.data.docs.length,
             itemBuilder: (context, i) {
               var data = snapshat.data.docs[i].data();

@@ -54,7 +54,7 @@ class _ShowEventState extends State<ShowEvent> {
             children: [
               StreamBuilder(
                 stream: ticketsCollection
-                    // .orderBy('')
+                    .where('soldOut', isNotEqualTo: 'totalTicket')
                     .snapshots(),
                 builder: (context, AsyncSnapshot snapshat) {
                   if (snapshat.hasError) {

@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
                 child: widget!,
               );
             },
-            home: EventNavBar()
+            home: UserHome()
 
         );
       },

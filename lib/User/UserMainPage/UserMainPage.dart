@@ -18,6 +18,13 @@ class UserMainPage extends StatefulWidget {
 class _UserMainPageState extends State<UserMainPage> {
   CollectionReference ticketsCollection =
       FirebaseFirestore.instance.collection("tickets");
+  String? userId;
+  @override
+  void initState() {
+    super.initState();
+    userId = FirebaseAuth.instance.currentUser?.uid;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,8 +123,7 @@ class _UserMainPageState extends State<UserMainPage> {
 //AllEvent=================================================================
   Widget allEvent() {
     return StreamBuilder(
-      stream: ticketsCollection
-          .snapshots(),
+      stream: ticketsCollection.snapshots(),
       builder: (context, AsyncSnapshot snapshat) {
         if (snapshat.hasError) {
           return const Center(child: Text("Error check internet!"));
@@ -151,27 +157,30 @@ class _UserMainPageState extends State<UserMainPage> {
   Widget mainBody(BuildContext context, AsyncSnapshot snapshat) {
     return snapshat.data.docs.length > 0
         ? ListView.builder(
-          scrollDirection: Axis.horizontal,
+            scrollDirection: Axis.horizontal,
             itemCount: snapshat.data.docs.length,
             itemBuilder: (context, i) {
               var data = snapshat.data.docs[i].data();
               return InkWell(
                   onTap: () {
-                    goTo(context, Details(
-                       name: data['name'],
-                              city: data['city'],
-                              docId: snapshat.data.docs[i].id,
-                              detail: data['details'],
-                              endData: data['endDate'],
-                              fileName: data['fileName'],
-                              link: data['link'],
-                              location: data['location'],
-                              price: data['price'],
-                              stDate: data['startDate'],
-                              ticketNumbrt: data['totalTicket'],
-                             soldOut :data['soldOut'],
-                            
-                    ));
+                    goTo(
+                        context,
+                        Details(
+                          name: data['name'],
+                          city: data['city'],
+                          docId: snapshat.data.docs[i].id,
+                          detail: data['details'],
+                          endData: data['endDate'],
+                          fileName: data['fileName'],
+                          link: data['link'],
+                          location: data['location'],
+                          price: data['price'],
+                          stDate: data['startDate'],
+                          ticketNumbrt: data['totalTicket'],
+                          soldOut: data['soldOut'],
+                          eventId: data['eventId'],
+                          userId: userId!,
+                        ));
                   },
 
 //=========================================================

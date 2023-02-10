@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/src/widgets/editable_text.dart';
 
+import '../Funcations/Funcation.dart';
+
 //حق الحقول لو انا بضيف الحقول في الداتا بيز
 //انشات كلاس الفير بيز فيها كل الميثود الي هنستخدمها في الداتا
 //١-اضافه حساب ٢- اضافه مستخدم ٣-عمليه لوق ان ٤-عرض الايفنتات حذف الايفنت ٥-تعديل ايفنت
@@ -215,6 +217,7 @@ class Firbase {
         'details': details,
         'soldOut': 0,
         'createdOn': FieldValue.serverTimestamp(),
+        'eventd':randomNumber(6),
       });
       return 'done';
     } catch (e) {
@@ -255,28 +258,46 @@ class Firbase {
     //   return 'error';
     // }
   }
-//=======================check phone number method======================================
 
-  static Future<String> checkPhoneNumber({
-    required String phone,
-  }) async {
+//updateTickets=============================================================
+  static Future<String> updateTickets(
+      {required String docId,
+      required int totalTicket,
+      required int solidTickets}) async {
     try {
-      await FirebaseAuth.instance.verifyPhoneNumber(
-          phoneNumber: phone,
-          verificationCompleted: (e){},
-          verificationFailed: (e){},
-          codeSent: (String verification, int?token){},
-          codeAutoRetrievalTimeout: (e){});
-    } on FirebaseException catch (e) {
-      if (e.code == 'weak-password') {
-        return 'weak-password';
-      }
-      if (e.code == 'email-already-in-use') {
-        return 'email-already-in-use';
-      }
+      await FirebaseFirestore.instance.collection('tickets').doc(docId).update({
+        'totalTicket': totalTicket,
+        'soldOut': solidTickets,
+      });
+
+      return 'done';
     } catch (e) {
-      return e.toString();
+      return 'error';
     }
-    return 'error';
+  }
+
+//myTickets=============================================================
+  static Future<String> myTickets(
+      {required String userId,
+      required String userName,
+      required int numberOfTicket,
+      required String ticketId,
+      required String userPhone,
+      required int totalPrice,
+      required String stDate}) async {
+    try {
+      await FirebaseFirestore.instance.collection('myTickets').add({
+        'userId': userId,
+        'userName': userName,
+        'numberOfTicket': numberOfTicket,
+        'ticketId': ticketId,
+        'userPhone': userPhone,
+        'totalPrice': totalPrice,
+      });
+
+      return 'done';
+    } catch (e) {
+      return 'error';
+    }
   }
 }

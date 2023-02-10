@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -427,4 +429,10 @@ appBar2(context, String pageName, action) {
     backgroundColor: iconColor,
     elevation: 0,
   );
+}
+String randomNumber(int length) {
+  const characters = '0123456789';
+  Random random = Random();
+  return String.fromCharCodes(Iterable.generate(
+      length, (_) => characters.codeUnitAt(random.nextInt(characters.length))));
 }

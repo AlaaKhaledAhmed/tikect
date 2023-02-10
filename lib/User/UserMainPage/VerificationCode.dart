@@ -21,9 +21,11 @@ class VerificationCode extends StatefulWidget {
   final String docId;
   final String userPhone;
   final String selectEventDate;
+final String eventName;
   const VerificationCode(
       {Key? key,
       required this.verificationId,
+      required this.eventName,
       required this.userId,
       required this.eventTotalTicket,
       required this.eventSoldOut,
@@ -196,12 +198,13 @@ class _VerificationCodeState extends State<VerificationCode> {
                               if (value == "done") {
                                 Firbase.myTickets(
                                         userId: widget.userId,
-                                        userName: '',
                                         numberOfTicket: widget.userNumberTicket,
                                         ticketId: widget.eventId,
                                         userPhone: widget.userPhone,
                                         totalPrice: widget.totalUserPrice,
-                                        stDate: widget.selectEventDate)
+                                        stDate: widget.selectEventDate,
+                                        eventName:widget.eventName
+                                        )
                                     .then((v) {
                                   if (v == "done") {
                                     Navigator.pop(context);

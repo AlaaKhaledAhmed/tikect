@@ -258,6 +258,7 @@ class _DetailsState extends State<Details> {
                               userId: widget.userId,
                               userNumberTicket: total,
                               userPhone: phoneController.text,
+                              eventName:widget.name,
                             ));
                       },
                       codeAutoRetrievalTimeout: (String verificationId) {},
@@ -265,7 +266,10 @@ class _DetailsState extends State<Details> {
                   }
                 }
               }, backgroundColor: iconColor),
-            )
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
           ],
         ));
   }

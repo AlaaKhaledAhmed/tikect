@@ -308,6 +308,8 @@ lode(context, String title, String content,
                   height: 100.h,
                   width: double.infinity,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment:MainAxisAlignment.center,
                     children: [
                       SizedBox(height: 10.h),
 //continent tittle-------------------------------------------------------------------
@@ -334,6 +336,7 @@ lode(context, String title, String content,
                           ? Expanded(
                               flex: 2,
                               child: Row(
+                                crossAxisAlignment:CrossAxisAlignment.start,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [

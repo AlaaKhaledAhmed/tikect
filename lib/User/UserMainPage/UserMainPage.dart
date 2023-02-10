@@ -179,6 +179,7 @@ class _UserMainPageState extends State<UserMainPage> {
                           ticketNumbrt: data['totalTicket'],
                           soldOut: data['soldOut'],
                           eventId: data['eventId'],
+                         
                           userId: userId!,
                         ));
                   },

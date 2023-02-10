@@ -279,20 +279,22 @@ class Firbase {
 //myTickets=============================================================
   static Future<String> myTickets(
       {required String userId,
-      required String userName,
       required int numberOfTicket,
       required String ticketId,
       required String userPhone,
       required int totalPrice,
+        required String eventName,
       required String stDate}) async {
     try {
       await FirebaseFirestore.instance.collection('myTickets').add({
         'userId': userId,
-        'userName': userName,
         'numberOfTicket': numberOfTicket,
         'ticketId': ticketId,
         'userPhone': userPhone,
         'totalPrice': totalPrice,
+        'date':stDate,
+        'eventName':eventName
+        
       });
 
       return 'done';

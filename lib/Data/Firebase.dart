@@ -275,7 +275,21 @@ class Firbase {
       return 'error';
     }
   }
+//updateMyTickets=============================================================
+  static Future<String> updateMyTickets(
+      {required String docId,
+      required int valed,
+     }) async {
+    try {
+      await FirebaseFirestore.instance.collection('myTickets').doc(docId).update({
+        'valed': valed,
+      });
 
+      return 'done';
+    } catch (e) {
+      return 'error';
+    }
+  }
 //myTickets=============================================================
   static Future<String> myTickets(
       {required String userId,
@@ -293,7 +307,9 @@ class Firbase {
         'userPhone': userPhone,
         'totalPrice': totalPrice,
         'date':stDate,
-        'eventName':eventName
+        'eventName':eventName,
+        'valed':0,
+        'createdOn': FieldValue.serverTimestamp(),
         
       });
 

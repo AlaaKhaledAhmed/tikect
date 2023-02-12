@@ -271,7 +271,9 @@ Widget menu(
 lode(context, String title, String content,
     {bool showButtom = false,
     void Function()? yesFunction,
-    void Function()? noFunction}) {
+    void Function()? noFunction,
+    
+    double?higth}) {
   return showDialog(
       //barrierDismissible: false,
       context: context,
@@ -305,7 +307,7 @@ lode(context, String title, String content,
 
           content: content != "lode"
               ? SizedBox(
-                  height: 100.h,
+                  height: higth??100.h,
                   width: double.infinity,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -316,8 +318,8 @@ lode(context, String title, String content,
                       Expanded(
                         flex: 3,
                         child: Center(
-                          child: text(context, content, subTextSize, black,
-                              fontWeight: FontWeight.bold),
+                          child: text(context, content, mainTextSize, black,
+                              fontWeight: FontWeight.bold,align: TextAlign.left,),
                         ),
                       ),
 
@@ -347,7 +349,7 @@ lode(context, String title, String content,
                                       "yes",
                                       white,
                                       yesFunction,
-                                      backgroundColor: red!,
+                                      backgroundColor: iconColor,
                                     )),
 
                                     SizedBox(width: 20.w),
@@ -358,7 +360,7 @@ lode(context, String title, String content,
                                         "no",
                                         white,
                                         noFunction,
-                                        backgroundColor: red!,
+                                        backgroundColor: iconColor,
                                       ),
                                     )
                                   ]),

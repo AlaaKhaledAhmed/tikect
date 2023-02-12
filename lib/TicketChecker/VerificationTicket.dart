@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -171,10 +170,13 @@ class _VerificationTicketState extends State<VerificationTicket> {
                                     docId: widget.docId, valed: 1)
                                 .then((value) {
                               if (value == "done") {
-                              } else {
                                 Navigator.pop(context);
                                 lode(context, 'Verification user', doneData);
                                 goToReplace(context, const TicketChecker());
+                              } else {
+                                Navigator.pop(context);
+                                lode(context, 'Verification user', errorDat);
+                               
                               }
                             });
 //End ganrate bar code==============================================================================

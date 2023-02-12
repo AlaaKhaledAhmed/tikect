@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:tikect/Log/Logging.dart';
 import 'package:tikect/TicketChecker/TicketChecker.dart';
 import 'Colors/Colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
                 child: widget!,
               );
             },
-            home: TicketChecker()
+            home: LogIn()
 
         );
       },

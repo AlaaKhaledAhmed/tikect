@@ -153,9 +153,7 @@ class _LogInState extends State<LogIn> {
                 SizedBox(
                   height: 10.h,
                 ),
-                InkWell(
-                    child: text(context, "Reset Password", 14, black),
-                    onTap: () {}),
+               
               ],
             ),
           ),

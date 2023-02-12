@@ -17,7 +17,7 @@ class _UserHomeState extends State<UserHome> {
   List<Widget> page = [
     const MyTicket(),
     const UserMainPage(),
-    const Search(), 
+    //  Search(), 
   ];
   @override
   void initState() {
@@ -50,11 +50,11 @@ class _UserHomeState extends State<UserHome> {
           ),
 
           /// Search
-          SalomonBottomBarItem(
-            icon: const Icon(Icons.search),
-            title: const Text("Search"),
-            selectedColor: Colors.brown[600],
-          ),
+          // SalomonBottomBarItem(
+          //   icon: const Icon(Icons.search),
+          //   title: const Text("Search"),
+          //   selectedColor: Colors.brown[600],
+          // ),
 
           /// Profile
         ],

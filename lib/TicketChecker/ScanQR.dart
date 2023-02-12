@@ -137,7 +137,7 @@ class _ScanneQRState extends State<ScanneQR> {
                           context,
                           barCode != null
                               ? 'Event name: ${myData['eventName']}'
-                              : 'Scane QR',
+                              : 'Scane QR from myTicket page',
                           mainTextSize,
                           black,
                           align: TextAlign.justify,

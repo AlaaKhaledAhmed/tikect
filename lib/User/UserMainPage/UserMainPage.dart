@@ -7,6 +7,7 @@ import '../../Colors/Colors.dart';
 import '../../Funcations/Funcation.dart';
 import '../../Log/Logging.dart';
 import '../../Messag/Messages.dart';
+import '../Search.dart';
 
 class UserMainPage extends StatefulWidget {
   const UserMainPage({Key? key}) : super(key: key);
@@ -19,10 +20,18 @@ class _UserMainPageState extends State<UserMainPage> {
   CollectionReference ticketsCollection =
       FirebaseFirestore.instance.collection("tickets");
   String? userId;
+     List evntName = [];
   @override
   void initState() {
     super.initState();
     userId = FirebaseAuth.instance.currentUser?.uid;
+     ticketsCollection.get().then((value) {
+      for (var element in value.docs) {
+        setState(() {
+          evntName.add(element['name']);
+        });
+      }
+    });
   }
 
   @override
@@ -100,23 +109,28 @@ class _UserMainPageState extends State<UserMainPage> {
 
 //===============================================================================
   Widget searchBar() {
-    return Container(
-      padding: EdgeInsets.only(left: 20.w, right: 20.w),
-      width: double.infinity,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          text(context, 'search', mainTextSize, Colors.grey,
-              align: TextAlign.left, fontWeight: FontWeight.bold),
-          const Icon(
-            Icons.search,
-            color: Colors.grey,
-          )
-        ],
+    return InkWell(
+      onTap: (){
+        showSearch(context: context, delegate: Search(evntName,context,userId!));
+      },
+      child: Container(
+        padding: EdgeInsets.only(left: 20.w, right: 20.w),
+        width: double.infinity,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            text(context, 'search', mainTextSize, Colors.grey,
+                align: TextAlign.left, fontWeight: FontWeight.bold),
+            const Icon(
+              Icons.search,
+              color: Colors.grey,
+            )
+          ],
+        ),
+        decoration: BoxDecoration(
+            color: Colors.grey[200],
+            borderRadius: BorderRadius.all(Radius.circular(20.r))),
       ),
-      decoration: BoxDecoration(
-          color: Colors.grey[200],
-          borderRadius: BorderRadius.all(Radius.circular(20.r))),
     );
   }
 

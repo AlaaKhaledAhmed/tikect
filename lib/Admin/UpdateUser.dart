@@ -35,6 +35,7 @@ class _UpdateUserState extends State<UpdateUser> {
   GlobalKey<FormState> addKey = GlobalKey();
 
   @override
+  //عبيها من القيم الي في الداتا بيز
   void initState() {
     super.initState();
     nameController.text = widget.name;
@@ -104,6 +105,7 @@ class _UpdateUserState extends State<UpdateUser> {
                                   flex: 1,
                                 ),
 //update bottom==================================================================
+                         //الابديت
                                bottom(context, 'Update User', white, () {
                                   FocusManager.instance.primaryFocus?.unfocus();
                                   if (addKey.currentState?.validate() == true) {

@@ -18,6 +18,7 @@ class Search extends SearchDelegate<String> {
   Search(this.list, this.context, this.userId);
 
   @override
+  //اربع مثودات في السيرش اساسيه البيلد علامه الاكس
   List<Widget> buildActions(BuildContext context) {
     // Action of app bar
     return [
@@ -28,7 +29,7 @@ class Search extends SearchDelegate<String> {
           })
     ];
   }
-
+//الزر الي بالسيرش حق الرجوع
   @override
   Widget buildLeading(BuildContext context) {
     // الايقون الموجودة قبل المربع النصي
@@ -41,6 +42,7 @@ class Search extends SearchDelegate<String> {
 
 //buildResults------------------------------------------------------
   @override
+  //نفس كود الايفنت جبناه وغيرنا عليه
   Widget buildResults(BuildContext context) {
     CollectionReference<Map<String, dynamic>> productCollection =
         FirebaseFirestore.instance.collection("tickets");
@@ -69,10 +71,14 @@ class Search extends SearchDelegate<String> {
 
 //buildSuggestions-----------------------------------------------------------------------------------
   @override
+  //تبع نتايج البحث
   Widget buildSuggestions(BuildContext context) {
     print(list);
+    //سوينا زيه عرفنا لست سيرش يرجع قايمه بكل الفعاليات
     var listSearch = query.isEmpty
         ? list
+    //اذا ما كتبنا شي يرجعه القايمه كامله
+    // اذا كتبنا يرجع لنا الشي صح يرجعه
         : list.where((name) => name.startsWith(query)).toList();
     return ListView.builder(
         itemCount: listSearch.length,

@@ -118,11 +118,13 @@ class _VerificationTicketState extends State<VerificationTicket> {
 //code========================================================================
                       Form(
                         key: codeKey,
+                        //مربعات الادخال
                         child: Pinput(
                           animationCurve: Curves.easeInQuint,
                           controller: smsCode,
                           androidSmsAutofillMethod:
                               AndroidSmsAutofillMethod.smsRetrieverApi,
+                          //تصميمه
                           defaultPinTheme: defaultPinTheme,
                           focusedPinTheme: focusedPinTheme,
                           errorPinTheme: errorPinTheme,
@@ -154,22 +156,27 @@ class _VerificationTicketState extends State<VerificationTicket> {
                         ),
                       ),
                       SizedBox(height: 20.h),
-//check===============================================================
+//check cod ===============================================================
                       bottom(context, 'check', white, () async {
                         lode(context, 'lode', 'lode');
                         try {
+                          //يتحقق من صحه رقم الجوال بكج موفرته قوقل
                           PhoneAuthCredential credential =
                               PhoneAuthProvider.credential(
+                                //الرمز بالرساله
                                   verificationId: widget.verificationId,
                                   smsCode: smsCode.text);
                           await FirebaseAuth.instance
                               .signInWithCredential(credential);
 //ganrate bar code==============================================================================
                           if (FirebaseAuth.instance.currentUser != null) {
+                            //يحدث التذاكر
                             Firbase.updateMyTickets(
+                              // لو واحد التذكره غير صالحه
                                     docId: widget.docId, valed: 1)
                                 .then((value) {
                               if (value == "done") {
+                                //اضيف بيانات التذكره
                                 Navigator.pop(context);
                                 lode(context, 'Verification user', doneData);
                                 goToReplace(context, const TicketChecker());
@@ -181,11 +188,13 @@ class _VerificationTicketState extends State<VerificationTicket> {
                             });
 //End ganrate bar code==============================================================================
                           } else {
+                            //اذا رقم الجوال خطا
                             Navigator.pop(context);
                             lode(context, 'Verification user',
                                 'the code is incorrect');
                           }
                         } on FirebaseException catch (e) {
+                          //اذا الكود استخدمته
                           Navigator.pop(context);
                           if (e.code == 'session-expired') {
                             lode(context, 'Verification user',

@@ -13,7 +13,7 @@ class _AdminHomeState extends State<AdminHome> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      //وقفنا عند صفحه الادمن
+      //استدعينا الفيو يوزر
       body:ViewUser(),
 
     );

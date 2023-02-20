@@ -11,6 +11,7 @@ import '../../Messag/Messages.dart';
 import 'VerificationCode.dart';
 
 class Details extends StatefulWidget {
+  //استقبلنا قيمها من صفحه يوز بيج
   final String name;
   final String city;
   final String location;
@@ -53,11 +54,13 @@ class _DetailsState extends State<Details> {
 
   bool isPhonevisible = false;
   int? totalPrice;
+  //المتبقي من التذاكر
   int? remindTicket;
   int total = 1;
   @override
   void initState() {
     super.initState();
+    //قيمه التذكره ناقص الي اشتريناها
     totalPrice = widget.price;
     remindTicket = widget.ticketNumbrt - widget.soldOut;
   }
@@ -69,21 +72,27 @@ class _DetailsState extends State<Details> {
         body: ListView(
           children: [
 //image===========================================================
+//
             Container(
                 margin: EdgeInsets.all(10.r),
                 width: double.infinity,
                 height: 200.h,
+                //المسافات decoration
                 decoration: BoxDecoration(
+                  //borderRadiusالحواف
                     borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                    //الصوره من النت ورك داتا بيز
                     image: DecorationImage(
                       image: NetworkImage(widget.link),
                       fit: BoxFit.cover,
                     ))),
 //name===========================================================
+           // الريسي العنوان
             ListTile(
               title: text(
                   context, 'Event title', mainTextSize + 6, Colors.grey[900]!,
                   align: TextAlign.justify, fontWeight: FontWeight.bold),
+              //widget.name القيمه الي داخله الي جايني من الداتا
               subtitle: text(context, widget.name, mainTextSize, Colors.grey,
                   align: TextAlign.justify),
             ),
@@ -125,6 +134,7 @@ class _DetailsState extends State<Details> {
                   align: TextAlign.justify),
             ),
 //remaining tickets===========================================================
+          //التذاكر والمتبقي منها
             ListTile(
               title: text(context, 'Remaining tickets', mainTextSize + 6,
                   Colors.grey[900]!,
@@ -150,12 +160,17 @@ class _DetailsState extends State<Details> {
                           fontWeight: FontWeight.bold),
                     ],
                   )),
+              //ما يختار اقل ولا اعلي من التذاكر المتاحه
               subtitle: CounterButton(
                 loading: false,
+                //onchang  يرجع لي القيمه الي اخترتها  CounterButton مثود موجوده في
+                //يخزنه في متغير اسمه val
                 onChange: (int val) {
                   setState(() {
                     total = val;
+                    //اكبر من الصفر وفي نفس اللحظه يكون اقل او يساوي الرميند =ما يختار اصغر من واحد ولا اكبر من التذاكر المتبقيه
                     if (total > 0 && total <= remindTicket!) {
+                      //كل ما زودنا تذكره العدد بيزيد =التوتل الي اخترته مضروب في سعر التذكره
                       totalPrice = total * widget.price;
                     }
                   });
@@ -172,6 +187,8 @@ class _DetailsState extends State<Details> {
               height: 10.h,
             ),
 //============================== phone textField===============================================================
+           //٩٩٩٩٩٩٩
+            //الي يتحكم في خانه الجوال يختفي ولا يضهر
             Visibility(
               visible: isPhonevisible,
               child: Padding(
@@ -199,6 +216,7 @@ class _DetailsState extends State<Details> {
               ),
             ),
 //buy===========================================================
+
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: 15.w,
@@ -209,15 +227,22 @@ class _DetailsState extends State<Details> {
                 } else if (total > remindTicket!) {
                   lode(context, 'BUY', 'The quantity is not enough');
                 } else {
+                  //لو كل شي صح =الكود
                   setState(() {
                     isPhonevisible = true;
                   });
+
                   FocusManager.instance.primaryFocus?.unfocus();
                   if (addKey.currentState?.validate() == true) {
                     print(phoneController.text);
                     lode(context, 'lode', 'lode');
+                    //الفير بيز فيها خاصيه اسمها الفون فالديت
+                    // الكود تلقايي يرسله قوقل
                     await FirebaseAuth.instance.verifyPhoneNumber(
+                      //المثود فيها اكثر من ارتربيوت verifyPhoneNumber اول شي رقم الجوال
+                      //phoneController.text امررها رقم الجوال الي دخلنها في خانه
                       phoneNumber: phoneController.text,
+                      //اذا اكتمل
                       verificationCompleted:
                           (PhoneAuthCredential credential) async {
                         await FirebaseAuth.instance
@@ -225,6 +250,7 @@ class _DetailsState extends State<Details> {
                             .then((value) async {
                           Navigator.pop(context);
                           if (value.user != null) {
+                            //صحيح
                             print("Done !!" "verificationCompleted");
                           } else {
                             Navigator.pop(context);
@@ -242,13 +268,13 @@ class _DetailsState extends State<Details> {
                           lode(context, 'verification', 'invalid phone number');
                         }
                       },
+                      //اول ما ينرسل الكود
                       codeSent:
+
                           (String verificationId, int? resendToken) async {
                         Navigator.pop(context);
-                        goTo(
-                            context,
-                            VerificationCode(
-                              verificationId: verificationId,
+                        goTo( context,
+                            VerificationCode( verificationId: verificationId,
                               docId: widget.docId,
                               eventId: widget.eventId,
                               eventSoldOut: widget.soldOut,
@@ -275,6 +301,7 @@ class _DetailsState extends State<Details> {
   }
 
   //show date picker----------------------------------------
+  //٠٩٩٩٩٩٩٩٩٩٩٩٩
   void onTapDate() async {
     FocusScope.of(context).unfocus();
     DateTime? datePicker = await showDatePicker(

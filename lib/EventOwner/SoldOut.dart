@@ -9,7 +9,7 @@ import '../Funcations/Funcation.dart';
 import '../Log/Logging.dart';
 import '../Messag/Messages.dart';
 import 'ManageEvent/AddEvent.dart';
-
+//٠٠٠٩٩٩٩٩٩ ما شرحتو
 class SoldOut extends StatefulWidget {
   const SoldOut({Key? key}) : super(key: key);
 
@@ -48,6 +48,8 @@ class _SoldOutState extends State<SoldOut> {
             children: [
               StreamBuilder(
                 stream: ticketsCollection
+                //الرقمين بيساو بعض
+                //نفس الادمن يضيف الاونر
                    .where('soldOut', isEqualTo: 'totalTicket')
                     .snapshots(),
                 builder: (context, AsyncSnapshot snapshat) {

@@ -36,12 +36,14 @@ final String eventName;
       required this.selectEventDate,
       required this.userNumberTicket})
       : super(key: key);
-
+//٩٩٩٩٩٩٩٩٩٩٩
   @override
   State<VerificationCode> createState() => _VerificationCodeState();
 }
-
+//٩٩٩٩٩٩٩٩٩٩٩
+//في صفحه الديتيلز
 class _VerificationCodeState extends State<VerificationCode> {
+  //تبع حقول الارقام
   TextEditingController smsCode = TextEditingController();
   PinTheme? defaultPinTheme, focusedPinTheme, submittedPinTheme, errorPinTheme;
   GlobalKey<FormState> codeKey = GlobalKey();
@@ -140,11 +142,14 @@ class _VerificationCodeState extends State<VerificationCode> {
 //code========================================================================
                       Form(
                         key: codeKey,
+                        //مربعات الادخال
                         child: Pinput(
                           animationCurve: Curves.easeInQuint,
                           controller: smsCode,
+                          //يجيبلي الرساله تلقايي
                           androidSmsAutofillMethod:
                               AndroidSmsAutofillMethod.smsRetrieverApi,
+                          //التصميم
                           defaultPinTheme: defaultPinTheme,
                           focusedPinTheme: focusedPinTheme,
                           errorPinTheme: errorPinTheme,
@@ -181,13 +186,18 @@ class _VerificationCodeState extends State<VerificationCode> {
                         lode(context, 'lode', 'lode');
                         try {
                           PhoneAuthCredential credential =
+                          //تتحق لي من صحه الجوال بكج من قوقل
                               PhoneAuthProvider.credential(
+                                //ننكتب الرمز الي وصلي
                                   verificationId: widget.verificationId,
+                                  //الكود الي انا ادخلو اسمه اس ام اس كود
                                   smsCode: smsCode.text);
                           await FirebaseAuth.instance
                               .signInWithCredential(credential);
 //ganrate bar code==============================================================================
+                         //اذا الكود الي دخلتو صح يحدث التذاكر
                           if (FirebaseAuth.instance.currentUser != null) {
+                            //يحدث التذاكر
                             Firbase.updateTickets(
                                     docId: widget.docId,
                                     totalTicket: widget.eventTotalTicket -
@@ -196,6 +206,7 @@ class _VerificationCodeState extends State<VerificationCode> {
                                         widget.userNumberTicket)
                                 .then((value) {
                               if (value == "done") {
+                                //اضيف بيانات الجدول في الفير بيس
                                 Firbase.myTickets(
                                         userId: widget.userId,
                                         numberOfTicket: widget.userNumberTicket,
@@ -209,6 +220,7 @@ class _VerificationCodeState extends State<VerificationCode> {
                                   if (v == "done") {
                                     Navigator.pop(context);
                                     lode(context, addData,
+                                        //يرجعني الصفحه الريسيه
                                         doneData + " go to home page?",
                                         showButtom: true, noFunction: () {
                                       goToReplace(context, UserHome());
@@ -227,6 +239,7 @@ class _VerificationCodeState extends State<VerificationCode> {
                             });
 //End ganrate bar code==============================================================================
                           } else {
+                            //اذا دخلت غلط
                             Navigator.pop(context);
                             lode(context, 'Verification phone',
                                 'the code is incorrect');

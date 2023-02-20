@@ -70,7 +70,7 @@ goTo(context, pageName) {
 }
 
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
+//يستبدل سفحه محل صفحه
 goToReplace(BuildContext context, pageName) {
   return Navigator.pushReplacement(
       context, MaterialPageRoute(builder: (context) => pageName));
@@ -143,9 +143,11 @@ Widget textField(context, icons, String key, bool hintPass,
     TextInputType? keyboardType,
     hintText}) {
   return TextFormField(
+    //تخليها نجوم
     obscureText: hintPass,
     minLines: minlime,
     maxLines: max,
+    //
     validator: myValued,
     autovalidateMode: AutovalidateMode.onUserInteraction,
     onTap: onTap,
@@ -307,7 +309,7 @@ lode(context, String title, String content,
 
           content: content != "lode"
               ? SizedBox(
-                  height: higth??100.h,
+                  height: higth??200.h,
                   width: double.infinity,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

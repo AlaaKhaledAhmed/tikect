@@ -88,12 +88,12 @@ class _AddUserState extends State<SingUp> {
                     SizedBox(
                       height: 10.h,
                     ),
- //============================== password textField===============================================================
+                    //============================== password textField===============================================================
                     textField(
                       context,
                       passIcon,
                       "Password",
-                      false,
+                      true,
                       passwordController,
                       password,
 
@@ -114,22 +114,22 @@ class _AddUserState extends State<SingUp> {
                       context,
                       "Create Account",
                       textColor,
-                      () {
+                          () {
                         FocusManager.instance.primaryFocus?.unfocus();
                         if (addKey.currentState?.validate() == true) {
                           lode(context, '', 'lode');
-
+//استدعا مثود السنق
                           Firbase.singUpAccount(
-                                  name: nameController.text,
-                                  email: emailController.text,
-                                  password: passwordController.text,
-                                  idNumber: idController.text,
-                                  type: "user")
+                              name: nameController.text,
+                              email: emailController.text,
+                              password: passwordController.text,
+                              idNumber: idController.text,
+                              type: "user")
                               .then((String v) {
                             print('================$v');
                             if (v == 'done') {
                               Navigator.pop(context);
-                               Navigator.pop(context);
+                              Navigator.pop(context);
                               lode(context, addData, doneData);
                             } else if (v == 'weak-password') {
                               Navigator.pop(context);

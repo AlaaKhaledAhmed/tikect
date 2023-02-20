@@ -8,7 +8,7 @@ import '../../Funcations/Funcation.dart';
 import '../../Log/Logging.dart';
 import '../../Messag/Messages.dart';
 import '../Search.dart';
-
+//واجهه المستخدم +نفس واجهه الايفنت اونر
 class UserMainPage extends StatefulWidget {
   const UserMainPage({Key? key}) : super(key: key);
 
@@ -20,14 +20,17 @@ class _UserMainPageState extends State<UserMainPage> {
   CollectionReference ticketsCollection =
       FirebaseFirestore.instance.collection("tickets");
   String? userId;
+  //سوينا اري باسما الايفنت
      List evntName = [];
   @override
   void initState() {
     super.initState();
     userId = FirebaseAuth.instance.currentUser?.uid;
+    //يمر علي جداول التكت
      ticketsCollection.get().then((value) {
       for (var element in value.docs) {
         setState(() {
+          //يضيف الاسما
           evntName.add(element['name']);
         });
       }
@@ -77,6 +80,7 @@ class _UserMainPageState extends State<UserMainPage> {
                               ),
                               SizedBox(
                                   height: 100.h,
+                                  //نص
                                   child: text(
                                       context,
                                       'Find the trending events',
@@ -86,6 +90,7 @@ class _UserMainPageState extends State<UserMainPage> {
                                       fontWeight: FontWeight.bold)),
 //search bar===================================================================================
                               SizedBox(height: 70.h, child: searchBar()),
+                              //مسافات
                               SizedBox(
                                 height: 25.h,
                               ),
@@ -111,6 +116,7 @@ class _UserMainPageState extends State<UserMainPage> {
   Widget searchBar() {
     return InkWell(
       onTap: (){
+        //كلاس موجوده في الفلاتر بس امرر له اسماالايفنت الي عرفناها فوق في مصفوفه
         showSearch(context: context, delegate: Search(evntName,context,userId!));
       },
       child: Container(
@@ -122,6 +128,7 @@ class _UserMainPageState extends State<UserMainPage> {
             text(context, 'search', mainTextSize, Colors.grey,
                 align: TextAlign.left, fontWeight: FontWeight.bold),
             const Icon(
+              //سيرش
               Icons.search,
               color: Colors.grey,
             )
@@ -136,8 +143,11 @@ class _UserMainPageState extends State<UserMainPage> {
 
 //AllEvent=================================================================
   Widget allEvent() {
+    //عشان بقراها من الداتا بيز استخدمنا StreamBuilder
     return StreamBuilder(
+      //احدد لل streem الجدول الي بقرا منو
       stream: ticketsCollection.snapshots(),
+      ////////////٩٩٩٩٩٩٩٩٩٩٩٩
       builder: (context, AsyncSnapshot snapshat) {
         if (snapshat.hasError) {
           return const Center(child: Text("Error check internet!"));
@@ -168,6 +178,7 @@ class _UserMainPageState extends State<UserMainPage> {
   }
 
   //==============================================================
+  //٠٩٩٩٩٩٩٩٩٩٩٩
   Widget mainBody(BuildContext context, AsyncSnapshot snapshat) {
     return snapshat.data.docs.length > 0
         ? ListView.builder(
@@ -176,8 +187,11 @@ class _UserMainPageState extends State<UserMainPage> {
             itemBuilder: (context, i) {
               var data = snapshat.data.docs[i].data();
               return InkWell(
+                //لما اضغط علي الفعاليه
                   onTap: () {
+                    //يوديني علي صفحه اسمهاDetails
                     goTo(
+                      //فيها تفاصيل كل ايفنت احتاج امررها لكلاس الديتيلز
                         context,
                         Details(
                           name: data['name'],
@@ -192,7 +206,7 @@ class _UserMainPageState extends State<UserMainPage> {
                           stDate: data['startDate'],
                           ticketNumbrt: data['totalTicket'],
                           soldOut: data['soldOut'],
-                          eventId: data['eventId'],
+                          eventId: data['eventd'],
                          
                           userId: userId!,
                         ));

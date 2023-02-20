@@ -9,7 +9,7 @@ import '../Colors/Colors.dart';
 import '../Funcations/Funcation.dart';
 import '../Messag/Messages.dart';
 import 'VerificationTicket.dart';
-
+// واجهه المستخدم+نفس واجهه الايفنت اونر
 class ScanneQR extends StatefulWidget {
   ScanneQR({Key? key}) : super(key: key);
 
@@ -18,6 +18,7 @@ class ScanneQR extends StatefulWidget {
 }
 
 class _ScanneQRState extends State<ScanneQR> {
+  //الماب الي حولناها لسترنق كان عندي ماب حولته لسترنق والحين العكس
   Map<String, dynamic> myData = {};
   final qrKey = GlobalKey(debugLabel: 'QR');
   QRViewController? controller;
@@ -108,7 +109,9 @@ class _ScanneQRState extends State<ScanneQR> {
               Expanded(
                 flex: 5,
                 child: QRView(
+                  //البكج الي تحط حواف علي حدود الكميرا
                   key: qrKey,
+
                   onQRViewCreated: (QRViewController controller) {
                     setState(() {
                       this.controller = controller;
@@ -117,9 +120,11 @@ class _ScanneQRState extends State<ScanneQR> {
                       setState(() {
                         this.barCode = barCode;
                       });
+                      //يجيب البيانات الي عرفناها في ماي داتا يفك التشفير
                       myData = jsonDecode(barCode.code);
                     });
                   },
+                  //علامه الحواف
                   overlay: QrScannerOverlayShape(
                     cutOutSize: MediaQuery.of(context).size.width * 0.8,
                     borderWidth: 10,
@@ -136,6 +141,7 @@ class _ScanneQRState extends State<ScanneQR> {
                       child: text(
                           context,
                           barCode != null
+                          //يعني اف الس
                               ? 'Event name: ${myData['eventName']}'
                               : 'Scane QR from myTicket page',
                           mainTextSize,
@@ -145,14 +151,18 @@ class _ScanneQRState extends State<ScanneQR> {
 //=====================================================================================
               InkWell(
                 onTap: () {
+                  //تبع التذكره اذا كان صفر يعني الكود شعغال
                   myData['valed'] == 0
+                  //نفس الكود حق رمز التحقق
                       ? lode(context, 'Event info',
                           'Event name: ${myData['eventName']}\nEvent Date: ${myData['date']}\nNumber of ticket: ${myData['numberOfTicket']}\ntotal Price: ${myData['totalPrice']}\nPhone: ${myData['userPhone']}\nsend code?',
                           showButtom: true, noFunction: () {
                           Navigator.pop(context);
                         }, yesFunction: () async {
                           lode(context, 'lode', 'lode');
+                          //تاخذ الرقم وترسل الرقم
                           await FirebaseAuth.instance.verifyPhoneNumber(
+                            //يرسل التحقق علي رقم الجوال
                             phoneNumber: myData['userPhone'],
                             verificationCompleted:
                                 (PhoneAuthCredential credential) async {
@@ -172,6 +182,7 @@ class _ScanneQRState extends State<ScanneQR> {
                                     'Something Went Wrong: ${e.toString()}');
                               });
                             },
+                            //بعد ما يرسلي الرقم صفحه التحقق
                             verificationFailed: (FirebaseAuthException e) {
                               Navigator.pop(context);
                               if (e.code == 'invalid-phone-number') {
@@ -179,11 +190,13 @@ class _ScanneQRState extends State<ScanneQR> {
                                     'invalid phone number');
                               }
                             },
+                            //ينقلني لصفحه التحقق+الرمز
                             codeSent: (String verificationId,
                                 int? resendToken) async {
                               Navigator.pop(context);
                               goTo(
                                   context,
+                                  //ينقلني للصفحه حق رقم الجوال والتحقق
                                   VerificationTicket(
                                     verificationId: verificationId,
                                     docId: myData['docId'],
@@ -194,6 +207,7 @@ class _ScanneQRState extends State<ScanneQR> {
                           );
                         }, higth: 250.h)
                       : Center(
+                    //اذا واحد يرجع انو انفليد
                           child: text(
                               context, 'Invalid ticket', mainTextSize, red!,
                               align: TextAlign.justify,

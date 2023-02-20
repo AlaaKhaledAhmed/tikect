@@ -23,6 +23,7 @@ class Firbase {
       //اول مكتبه "firabaseauth "متخصصه اني اعطيها ايميل واعطيها باسورد وهيا تضيفها لي بلجدول وتعطيها uid
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
+        //تريم حق المسافات الفاضيه بعد الايميل
               email: email.trim(), password: password);
       //اتاكد العمليه تمت ولا ما تمت
       if (userCredential.user != null) {
@@ -96,7 +97,7 @@ class Firbase {
   }
 
   //=======================Log in method======================================
-
+//استدعيناها في اللوق ان بوتم بطريقه مباشره
   static Future<String> loggingToApp(
       {required String email, required String password}) async {
     try {

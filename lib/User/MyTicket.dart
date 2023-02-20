@@ -18,6 +18,7 @@ class MyTicket extends StatefulWidget {
 
 class _MyTicketState extends State<MyTicket> {
   CollectionReference ticketsCollection =
+  //اقرا البيانات من جدول ماي تكت
       FirebaseFirestore.instance.collection("myTickets");
   Map<String, dynamic> myData = {};
   String? encodedJson;
@@ -88,9 +89,10 @@ class _MyTicketState extends State<MyTicket> {
   }
 
 //AllTicket=================================================================
+  //نسخنا حق عرض التذاكر بس بدل الصوره حطينا حق الباركود
   Widget allTicket() {
     return StreamBuilder(
-      stream: ticketsCollection.snapshots(),
+      stream: ticketsCollection.where('userId', isEqualTo: userId).snapshots(),
       builder: (context, AsyncSnapshot snapshat) {
         if (snapshat.hasError) {
           return const Center(child: Text("Error check internet!"));
@@ -128,6 +130,7 @@ class _MyTicketState extends State<MyTicket> {
             itemCount: snapshat.data.docs.length,
             itemBuilder: (context, i) {
               var data = snapshat.data.docs[i].data();
+              // عرفنا المتغير ماب زي الفيديو عشان نقدر نتحكم في الغيمه الي نحتاجها |+اخزن الاشياء الي جتني من الداتا بيز
               myData = {
                 'eventName': data['eventName'],
                 'date': data['date'],
@@ -139,7 +142,9 @@ class _MyTicketState extends State<MyTicket> {
                 'valed':data['valed'],
                 'docId':snapshat.data.docs[i].id,
               };
+              //هنا اشفرها لان QRتقبل قيم نصيه بنحزن اوبجكت كامل
               encodedJson = jsonEncode(myData);
+              //يجي بشكل استرنق
               return InkWell(
                   onTap: () {},
 
@@ -157,8 +162,11 @@ class _MyTicketState extends State<MyTicket> {
                           SizedBox(
                             height: 250.h,
                             child: Center(
+                              //هنا ينشي الباركود
                               child: QrImage(
+                                //المكتبه اللي شفنا الشرح كيف نحوله لباركود +القيم الي شفرتها فوق
                                 data: encodedJson!,
+                                //الاعدادات واللون
                                 version: QrVersions.auto,
                                 size: 250,
                                 gapless: false,
@@ -187,6 +195,7 @@ class _MyTicketState extends State<MyTicket> {
                               color: iconColor,
                             ),
                             //  padding: EdgeInsets.only(left: 10.0.w, top: 5.h),
+                            //عرض الفعاليات والتاريخ والاسم
                             child: Center(
                               child: text(context, data['eventName'],
                                   mainTextSize, white,

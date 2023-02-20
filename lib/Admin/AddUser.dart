@@ -107,6 +107,7 @@ class _AddUserState extends State<AddUser> {
                                   FocusManager.instance.primaryFocus?.unfocus();
                                   if (addKey.currentState?.validate() == true) {
                                     lode(context, '', 'lode');
+                                    //اسجل فيها حساب الايفنت اونر
                                     Firbase.singUpAccountEventOwner(
                                       type: 'eventOwner',
                                             name: nameController.text,

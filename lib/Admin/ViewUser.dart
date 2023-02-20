@@ -98,6 +98,7 @@ class _ViewUserState extends State<ViewUser> {
                 onTap: () {
                   goTo(
                       context,
+                      //تحديث
                       UpdateUser(
                         name: data['name'],
                         phone: data['phone'],
@@ -150,6 +151,7 @@ class _ViewUserState extends State<ViewUser> {
   }
 
 //delete====================================================================
+
   deleteInformation(i, String id, snapshat) {
     showDialog(
       context: context,
